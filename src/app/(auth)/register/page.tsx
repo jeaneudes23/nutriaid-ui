@@ -1,3 +1,6 @@
+"use client";
+
+import { registerAction } from "@/components/features/auth/auth-action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,11 +14,11 @@ export default function page() {
         <h2 className="font-heading text-3xl font-bold">Create an account</h2>
         <p className="text-gray-600">Enter your details to get started with PediatricCare.</p>
       </div>
-      <form className="grid gap-6">
+      <form action={registerAction} className="grid gap-6">
         <div className="grid gap-4">
           <div className="grid gap-1">
             <Label>Full name</Label>
-            <Input name="name" id="name" />
+            <Input name="fullName" id="name" />
           </div>
           <div className="grid gap-1">
             <Label>Email address</Label>
@@ -31,7 +34,7 @@ export default function page() {
           </div>
         </div>
         <div className="grid">
-          <Button>Create an account</Button>
+          <Button type="submit">Create an account</Button>
         </div>
       </form>
       <div className="grid gap-4 border-t py-4">

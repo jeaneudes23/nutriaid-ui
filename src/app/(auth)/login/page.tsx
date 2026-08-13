@@ -1,3 +1,4 @@
+import { signinAction } from "@/components/features/auth/auth-action";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +10,7 @@ export default function page() {
   return (
     <div className="grid gap-8">
       <h2 className="font-heading text-3xl font-bold">Login</h2>
-      <form className="grid gap-6">
+      <form action={signinAction} className="grid gap-6">
         <div className="grid gap-4">
           <div className="grid gap-1">
             <Label>Email address</Label>
@@ -21,7 +22,7 @@ export default function page() {
           </div>
         </div>
         <div className="grid">
-          <Button>Login</Button>
+          <Button type="submit">Login</Button>
         </div>
       </form>
       <div className="grid gap-4 border-t py-4">

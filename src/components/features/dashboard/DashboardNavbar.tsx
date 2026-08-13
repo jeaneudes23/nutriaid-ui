@@ -1,12 +1,10 @@
-import { BellIcon } from "lucide-react";
+import LogoutButton from "../auth/components/LogoutButton";
 
 export const DashboardNavbar = () => {
   return (
-    <nav>
-      <div className="bg-background container flex justify-end rounded-md py-3">
-        <div>
-          <BellIcon />
-        </div>
+    <nav className="flex justify-end py-4">
+      <div>
+        <LogoutButton />
       </div>
     </nav>
   );
