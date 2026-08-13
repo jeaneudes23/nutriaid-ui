@@ -1,7 +1,6 @@
 export interface ServerActionState {
   success?: boolean,
   message?: string,
-  toastId?: string
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   errors?: any,
@@ -13,6 +12,10 @@ export interface ServerActionState {
 
 }
 
+export interface BackEndErrorResponse {
+  title: string,
+  errors: { message: string, param: string, value: string }[]
+}
 import { DefaultSession } from "next-auth"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -36,3 +39,4 @@ declare module "next-auth/jwt" {
     token: string,
   }
 }
+

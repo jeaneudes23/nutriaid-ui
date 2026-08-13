@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CONFIG } from "@/lib/config";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 
 const fontHeading = Atkinson_Hyperlegible_Next({
   variable: "--font-heading",
@@ -28,7 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={cn("h-full", "antialiased", fontHeading.variable, fontNormal.variable)}>
       <SessionProvider>
-        <body className="flex min-h-full flex-col">{children}</body>
+        <body className="flex min-h-full flex-col">
+          {children}
+          <Toaster />
+        </body>
       </SessionProvider>
     </html>
   );

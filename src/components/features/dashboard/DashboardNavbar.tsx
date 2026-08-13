@@ -1,4 +1,4 @@
-import LogoutButton from "../auth/components/LogoutButton";
+import LogoutButton from "../auth/components/SignoutButton";
 
 export const DashboardNavbar = () => {
   return (

@@ -44,7 +44,7 @@ export const FeaturesSection = () => {
     <section className="py-16 lg:py-24">
       <div className="container grid gap-12">
         <div className="grid gap-4 text-center">
-          <h2 className="font-primary font-heading text-4xl font-bold">Comprehensive Tools</h2>
+          <h2 className="font-primary font-heading text-2xl font-bold lg:text-4xl">Comprehensive Tools</h2>
           <p className="text-lg text-gray-600">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit, necessitatibus?</p>
         </div>
         <div className="grid gap-6 lg:grid-cols-3">
