@@ -1,7 +1,7 @@
 "use server"
 
 import { signIn, signOut } from "@/lib/auth";
-import { login, registerCareGiver } from "./auth-api";
+import { registerCareGiver } from "./auth-api";
 
 export async function registerAction(formData: FormData) {
   const rawFormData = {
