@@ -1,5 +1,5 @@
 import { AppLogo } from "@/components/AppLogo";
-import { BabyIcon, LayoutDashboardIcon } from "lucide-react";
+import { BabyIcon, LayoutDashboardIcon, ThumbsUpIcon } from "lucide-react";
 import Link from "next/link";
 import { SidebarLink } from "./SidebarLink";
 import { DashboardUserMenu } from "./DashboardUserMenu";
@@ -14,6 +14,11 @@ const SIDEBAR_LINKS = [
     icon: <BabyIcon className="size-5" />,
     label: "children",
     href: "/admin/children",
+  },
+  {
+    icon: <ThumbsUpIcon className="size-5" />,
+    label: "Recommendations",
+    href: "/admin/recommendations",
   },
 ];
 export const DashboardSidebar = () => {

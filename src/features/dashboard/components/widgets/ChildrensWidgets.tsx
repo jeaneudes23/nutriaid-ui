@@ -1,10 +1,8 @@
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { UserAvatar } from "@/components/UserAvatar";
 import { cn } from "@/lib/utils";
-import { ArrowRightIcon, ExternalLinkIcon, RulerDimensionLineIcon, WeightIcon } from "lucide-react";
+import { ArrowRightIcon, ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 
 export const ChildrensWidgets = () => {
@@ -19,33 +17,6 @@ export const ChildrensWidgets = () => {
       </CardHeader>
       <CardContent className="grid">
         <ChildrenTable />
-      </CardContent>
-    </Card>
-  );
-};
-
-const ChildCard = () => {
-  return (
-    <Card className="pt-0">
-      <CardHeader className="bg-primary/10 flex w-full items-end justify-between py-2 pt-10">
-        <UserAvatar name="Mary waters" className="bg-primary text-primary-foreground size-14 rounded-md text-center text-lg font-bold" />
-        <Badge className="bg-green-600">On track</Badge>
-      </CardHeader>
-      <CardContent>
-        <div>
-          <div className="font-semibold">Emmma Emily</div>
-          <div className="text-muted-foreground">1y 2m</div>
-        </div>
-        <div className="text-muted-foreground flex items-center gap-2 text-xs">
-          <div className="inline-flex items-center gap-1">
-            <WeightIcon className="size-4" />
-            <span className="font-medium">1.2 kgs</span>
-          </div>
-          <div className="inline-flex items-center gap-1">
-            <RulerDimensionLineIcon className="size-4" />
-            <span className="font-medium">56 cm</span>
-          </div>
-        </div>
       </CardContent>
     </Card>
   );

@@ -24,7 +24,7 @@ export const RecommendationsWidget = () => {
       <CardContent className="grow">
         {TIPS.map((tip, i) => (
           <div key={i} className="border-primary bg-primary/5 rounded border-l-4 p-4">
-            <div className="text-base font-bold">{tip.title}</div>
+            <div className="font-bold">{tip.title}</div>
             <div className="text-muted-foreground text-sm">{tip.summary}</div>
           </div>
         ))}

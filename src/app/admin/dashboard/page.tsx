@@ -5,8 +5,8 @@ import { StatsOverviewWidget } from "@/features/dashboard/components/widgets/Sta
 
 export default function page() {
   return (
-    <div className="p-6">
-      <h2 className="font-heading text-4xl font-bold">Dashboard</h2>
+    <div className="p-8">
+      <h2 className="font-heading text-xl font-bold lg:text-2xl">Dashboard</h2>
       <hr className="my-6" />
       <div className="grid gap-8">
         <StatsOverviewWidget />
