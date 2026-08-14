@@ -1,6 +1,6 @@
 "use client";
 
-import { SignupForm } from "@/components/features/auth/components/SignupForm";
+import { SignupForm } from "@/features/auth/components/SignupForm";
 import { ShieldAlertIcon } from "lucide-react";
 import Link from "next/link";
 

@@ -1,10 +1,8 @@
 import { AppLogo } from "@/components/AppLogo";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { BabyIcon, LayoutDashboardIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import { SidebarLink } from "./SidebarLink";
+import { DashboardUserMenu } from "./DashboardUserMenu";
 
 const SIDEBAR_LINKS = [
   {
@@ -20,19 +18,22 @@ const SIDEBAR_LINKS = [
 ];
 export const DashboardSidebar = () => {
   return (
-    <aside className="bg-primary/10 flex h-dvh w-64 flex-col shadow">
-      <div className="mb-8 px-2 py-6">
+    <aside className="flex h-dvh w-64 flex-col bg-gray-100">
+      <div className="mb-8 px-4 py-6">
         <Link href={"/admin/dashboard"}>
           <AppLogo />
         </Link>
       </div>
-      <div className="grid grow content-start overflow-y-auto">
+      <div className="grid grow content-start gap-2 overflow-y-auto px-4">
         {SIDEBAR_LINKS.map((link, i) => (
           <SidebarLink key={i} href={link.href}>
             {link.icon}
             {link.label}
           </SidebarLink>
         ))}
+      </div>
+      <div className="px-4 py-6">
+        <DashboardUserMenu />
       </div>
     </aside>
   );

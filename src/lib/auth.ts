@@ -1,4 +1,4 @@
-import { login } from "@/components/features/auth/auth-api"
+import { login } from "@/features/auth/auth-api"
 import NextAuth, { CredentialsSignin } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 

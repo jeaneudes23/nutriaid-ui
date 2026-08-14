@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
-import SignoutButton from "./features/auth/components/SignoutButton";
+import SignoutButton from "../features/auth/components/SignoutButton";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { LayoutDashboard } from "lucide-react";
 import { UserAvatar } from "./UserAvatar";

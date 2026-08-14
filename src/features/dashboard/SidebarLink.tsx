@@ -17,7 +17,11 @@ export const SidebarLink = ({ children, href }: LinkProps) => {
   return (
     <Link
       href={href}
-      className={cn(buttonVariants({ variant: isActive ? "default" : "ghost" }), "h-auto justify-start rounded-none border-none py-3 capitalize", isActive ? "" : "hover:bg-primary/10 shadow-none")}
+      className={cn(
+        buttonVariants({ variant: isActive ? "outline" : "ghost" }),
+        "h-auto justify-start rounded-md border-none py-2 capitalize",
+        isActive ? "text-primary shadow" : "hover:bg-primary/10 shadow-none",
+      )}
     >
       {children}
     </Link>

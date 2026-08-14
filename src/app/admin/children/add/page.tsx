@@ -1,4 +1,4 @@
-import { ChildrenCreateForm } from "@/components/features/children/components/ChildrenCreateForm";
+import { ChildrenCreateForm } from "@/features/children/components/ChildrenCreateForm";
 import React from "react";
 
 export default function page() {

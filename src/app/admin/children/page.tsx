@@ -1,4 +1,4 @@
-import { ChildrenList } from "@/components/features/children/components/ChildrenList";
+import { ChildrenList } from "@/features/children/components/ChildrenList";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

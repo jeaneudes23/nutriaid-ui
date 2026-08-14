@@ -1,14 +1,18 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { UserAvatar } from "@/components/UserAvatar";
+import { auth } from "@/lib/auth";
+import SignoutButton from "../auth/components/SignoutButton";
 
-const NAME = "Jack Hy";
-export const AuthUserDropDown = () => {
+export const DashboardUserMenu = async () => {
+  const session = await auth();
+
+  if (!session?.user.name) return null;
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <span className="text-primary border-primary inline rounded-full border-2 p-2 text-sm font-medium uppercase">{`${NAME.split(" ")[0][0]}${NAME.split(" ")[1] ? NAME.split(" ")[1][0] : ""}`}</span>
+      <DropdownMenuTrigger className={"flex w-full items-center gap-2 rounded-md border bg-white p-2 shadow"}>
+        <UserAvatar name={session.user.name} />
+        <p className="text-sm font-medium">{session.user.name}</p>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={"min-w-56"}>
         <DropdownMenuGroup>
@@ -17,7 +21,7 @@ export const AuthUserDropDown = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup className={"grid"}>
-          <Button>Logout</Button>
+          <SignoutButton className="grid" />
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

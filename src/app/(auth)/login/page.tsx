@@ -1,4 +1,4 @@
-import { SigninForm } from "@/components/features/auth/components/SigninForm";
+import { SigninForm } from "@/features/auth/components/SigninForm";
 import { ShieldAlertIcon } from "lucide-react";
 import Link from "next/link";
 
