@@ -15,7 +15,11 @@ interface Props {
 }
 
 export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appendAddChildFormData }: Props) => {
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date();
+  const maxDate = today.toISOString().split("T")[0];
+  today.setFullYear(today.getFullYear() - 5);
+  const minDate = today.toISOString().split("T")[0];
+
   return (
     <Card className={cn(!isVisible ? "hidden" : "max-w-3xl")}>
       <CardHeader>
@@ -66,8 +70,10 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appe
         <div className="grid gap-1">
           <Label>Measurement date</Label>
           <Input
+            min={minDate}
+            max={maxDate}
             key={prevs?.measuredAt}
-            defaultValue={prevs?.measuredAt ?? today}
+            defaultValue={prevs?.measuredAt ?? maxDate}
             onChange={(e) => appendAddChildFormData({ key: "measuredAt", value: e.target.value })}
             type="date"
             name="measuredAt"

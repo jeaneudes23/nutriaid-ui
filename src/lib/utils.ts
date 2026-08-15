@@ -16,3 +16,7 @@ export function getAgeInMonths(date: string): string {
 
   return `${years} years and ${months} months`
 }
+
+export function parseDate(value: string): string {
+  return new Date(value).toISOString().split('T')[0]
+}

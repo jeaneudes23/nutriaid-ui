@@ -3,13 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { useActionState, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { addChildrenAction } from "../../children-server-action";
 import { AddChildFormBasicInfoPartial } from "./AddChildFormBasicInfoPartial";
 import { AddChildFormMeasurementsPartial } from "./AddChildFormMeasurementsPartial";
 import { AddChildFormBioPartial } from "./AddChildFormBioPartial";
 import { AddChildFormReviewPartial } from "./AddChildFormReviewPartial";
 import { SubmitButton } from "@/components/SubmitButton";
+import toast from "react-hot-toast";
 
 const STEP_COUNT = 4;
 const STEPS = ["Identity", "Bio", "Measurements", "Review"];
@@ -50,6 +51,20 @@ export const AddChildForm = () => {
   };
 
   const [state, action] = useActionState(addChildrenAction, {});
+
+  const stateRef = React.useRef<typeof state | null>(null);
+
+  useEffect(() => {
+    if (stateRef.current == state || !state.message) return;
+    stateRef.current = state;
+
+    if (state.success) {
+      toast.success(state.message);
+    }
+    {
+      toast.error(state.message);
+    }
+  });
 
   return (
     <div className="grid gap-8">

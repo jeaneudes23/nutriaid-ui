@@ -1,8 +1,10 @@
 "use server"
 
 import { authApi } from "@/lib/api";
-import { ServerActionState } from "@/types";
+import { BackEndErrorResponse, ServerActionState } from "@/types";
 import { AxiosError } from "axios";
+import { redirect } from "next/navigation";
+import { Child } from "./children-schema";
 
 export async function addChildrenAction(prev: ServerActionState, formData: FormData): Promise<ServerActionState> {
   const rawFormData = {
@@ -22,19 +24,25 @@ export async function addChildrenAction(prev: ServerActionState, formData: FormD
     }
   }
 
-  console.log(rawFormData)
+  let childId = null
 
   try {
-    await authApi.post('/children', { ...rawFormData })
+    const res = await authApi.post('/children', { ...rawFormData })
+    const child = res.data.data.child as Child
+    childId = child._id
+
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log(error.response?.data)
+    if (error instanceof AxiosError && error.response?.data) {
+      const data = error.response.data as BackEndErrorResponse
+      const errors = data.errors.reduce((acc, error) => ({ ...acc, [error.param]: error.message }), {})
+      return {
+        success: false,
+        message: error.response?.data?.title,
+        errors: errors,
+        prevs: rawFormData
+      }
     }
   }
 
-  return {
-    success: true,
-    message: "child created",
-    prevs: rawFormData
-  }
+  redirect(`/admin/children/${childId}`)
 }

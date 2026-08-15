@@ -44,7 +44,7 @@ export const AddChildFormBasicInfoPartial = ({ isVisible, prevs, errors, appendA
           <Label htmlFor="dateOfBirth">Date of birth</Label>
           <Input
             key={prevs?.dateOfBirth}
-            defaultValue={prevs?.dateOfBirth ?? ""}
+            defaultValue={prevs?.dateOfBirth ?? maxDate}
             min={minDate}
             max={maxDate}
             onChange={(e) => appendAddChildFormData({ key: "dateOfBirth", value: e.target.value })}
