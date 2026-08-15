@@ -53,3 +53,27 @@ export interface PredictionProbabilities {
   Wasting: string;
 }
 
+export interface AssessmentWithChild {
+  _id: string;
+  childId: Child;
+  caregiverId: string;
+  measuredAt: Date;
+  weightKg: number;
+  heightCm: number;
+  muacCm: number;
+  exclusiveBreastfeeding: null;
+  dietaryIntakeHistory: string;
+  healthAndMedicalBackground: string;
+  feedingChallenges: string;
+  allergiesAndPreferences: string;
+  householdContext: string;
+  ageMonthsAtMeasurement: number;
+  nutritionalStatus: string;
+  predictionProbabilities: PredictionProbabilities;
+  bmi: number;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+  insight: Insight;
+  foodRecommendations: FoodRecommendation[];
+}

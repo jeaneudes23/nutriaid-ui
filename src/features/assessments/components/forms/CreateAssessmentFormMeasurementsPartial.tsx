@@ -15,7 +15,7 @@ interface Props {
   appendCreateAssessmentFormData: ({ key, value }: AppendCreateAssessmentFormDataParams) => void;
 }
 
-export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, errors, dateOfBirth, appendCreateAssessmentFormData }: Props) => {
+export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth, appendCreateAssessmentFormData }: Props) => {
   const { minDate, maxDate } = getDateRanges();
 
   return (

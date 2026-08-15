@@ -23,6 +23,7 @@ export interface AddChildFormData {
   weightKg: string;
   muacCm: string;
   measuredAt: string;
+  ageMonthsAtMeasurement: string;
 }
 
 export interface AppendAddChildFormDataParams {
@@ -33,7 +34,7 @@ export interface AppendAddChildFormDataParams {
 export const AddChildForm = () => {
   const [step, setStep] = useState<number>(0);
 
-  const { minDate, maxDate } = getDateRanges();
+  const { maxDate } = getDateRanges();
 
   const [formData, setFormData] = useState<AddChildFormData>({
     displayName: "",
@@ -42,6 +43,7 @@ export const AddChildForm = () => {
     heightCm: "",
     weightKg: "",
     muacCm: "",
+    ageMonthsAtMeasurement: "0",
     measuredAt: maxDate,
   });
 

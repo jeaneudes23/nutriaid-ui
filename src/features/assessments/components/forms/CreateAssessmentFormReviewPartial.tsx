@@ -20,7 +20,6 @@ export const CreateAssessmentFormReviewPartial = ({ isVisible, formData }: Props
             Measurements: Physical Data
           </CardTitle>
         </CardHeader>
-        <pre>{JSON.stringify(formData, null, 2)}</pre>
         <CardContent className="grid grid-cols-2 gap-6">
           <div>
             <Label className="font-semibold">Measurement date</Label>

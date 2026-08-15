@@ -31,7 +31,7 @@ export interface AppendCreateAssessmentFormDataParams {
 export const CreateAssessmentForm = ({ child }: { child: Child }) => {
   const [step, setStep] = useState<number>(0);
 
-  const { minDate, maxDate } = getDateRanges();
+  const { maxDate } = getDateRanges();
 
   const [formData, setFormData] = useState<CreateAssessmentFormData>({
     heightCm: "",

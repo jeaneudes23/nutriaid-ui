@@ -1,7 +1,9 @@
+import { EmptyErrorMessage } from "@/components/ErrorMessages";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserAvatar } from "@/components/UserAvatar";
-import { cn } from "@/lib/utils";
+import { getAssessment } from "@/features/assessments/assessments-api";
+import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
 import { CheckIcon, CircleIcon, ExternalLinkIcon, MoveVerticalIcon, PersonStandingIcon, RulerDimensionLineIcon, ScaleIcon, ThumbsUpIcon, WeightIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -32,38 +34,49 @@ const STATS = [
   },
 ];
 
-export default function page() {
+interface Props {
+  params: Promise<{
+    assessmentId: string;
+  }>;
+}
+export default async function page({ params }: Props) {
+  const { assessmentId } = await params;
+  const assessment = await getAssessment(assessmentId);
+  if (!assessment)
+    return (
+      <div className="p-8 pt-20">
+        <EmptyErrorMessage />
+      </div>
+    );
   return (
     <div className="p-8">
       <div>
         <h2 className="text-xl font-bold lg:text-2xl">Nutritional Assessment Result</h2>
-        <p className="text-muted-foreground">Based on recent measurements recorded on 12/7/2026.</p>
+        <p className="text-muted-foreground">Based on recent measurements recorded on {parseDate(assessment.measuredAt)}</p>
       </div>
       <hr className="my-6" />
       <div className="grid grid-cols-3 gap-8">
         <Card className="col-span-2">
           <CardHeader className="flex items-center justify-between">
             <div className="group flex items-center gap-2">
-              <UserAvatar name={"Emma Hum"} className="bg-primary text-primary-foreground text-center" />
-              <Link href={"/admin/children/3939"}>
+              <UserAvatar name={assessment.childId.displayName} className="bg-primary text-primary-foreground text-center" />
+              <Link href={`/admin/children/${assessment.childId._id}`}>
                 <p className="group-hover:text-primary inline-flex items-center gap-2 font-semibold group-hover:underline">
-                  Emma Hum <ExternalLinkIcon className="size-4" />
+                  {assessment.childId.displayName} <ExternalLinkIcon className="size-4" />
                 </p>
-                <p className="text-muted-foreground text-xs font-medium">Male, 1y 2m</p>
+                <p className="text-muted-foreground text-xs font-medium">
+                  {assessment.childId.sex}, {`${parseDate(assessment.childId.dateOfBirth)} (${getAgeInMonths(assessment.childId.dateOfBirth)} months)`}
+                </p>
               </Link>
             </div>
             <div className="bg-primary/10 text-primary border-primary inline-flex items-center gap-1 rounded-md border px-2 py-1 text-sm font-bold">
               <CheckIcon />
-              Healthy
+              {assessment.nutritionalStatus}
             </div>
           </CardHeader>
           <CardContent>
-            <h2 className="text-xl font-bold">Summary</h2>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur facilis cum consectetur excepturi, laborum laboriosam odio velit, commodi beatae earum veritatis inventore sed.
-            Dignissimos enim aut deserunt fugiat asperiores cum, officiis commodi id ut consequuntur, quo in nobis iste voluptatibus quidem eius. Officia, quis! Non saepe nostrum repellat velit nemo
-            mollitia fuga? Atque quae molestiae sunt nisi delectus in qui, mollitia consequatur culpa, facilis, perferendis porro aliquam voluptas necessitatibus! Omnis assumenda explicabo deserunt
-            velit temporibus eius deleniti quasi. Aut molestiae iste natus sequi ipsum harum, hic inventore doloribus possimus pariatur voluptates commodi placeat at incidunt quaerat fugit! Voluptate,
-            nesciunt fuga.
+            <h2 className="text-xl font-bold">{assessment.insight.title}</h2>
+            {assessment.insight.body}
           </CardContent>
         </Card>
         <Card>

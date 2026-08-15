@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { UserAvatar } from "@/components/UserAvatar";
 import { cn, parseDate } from "@/lib/utils";
@@ -8,12 +8,18 @@ import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { getAssessments } from "../assessments-api";
+import { SearchBox } from "@/components/SearchBox";
 
 export const AssessmentsDatatable = async () => {
   const assessments = await getAssessments();
   return (
     <Card>
-      <CardHeader></CardHeader>
+      <CardHeader className="flex flex-wrap items-center justify-between gap-2">
+        <CardTitle>{assessments.length} assessments</CardTitle>
+        <div>
+          <SearchBox />
+        </div>
+      </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
@@ -39,7 +45,6 @@ export const AssessmentsDatatable = async () => {
                 <TableCell>{assessment.heightCm}</TableCell>
                 <TableCell>{assessment.muacCm}</TableCell>
                 <TableCell>{assessment.bmi.toFixed(1)}</TableCell>
-                <TableCell>{assessment.ageMonthsAtMeasurement}</TableCell>
                 <TableCell>{parseDate(assessment.measuredAt)}</TableCell>
                 <TableCell>
                   <Badge variant={"destructive"}>{assessment.nutritionalStatus}</Badge>

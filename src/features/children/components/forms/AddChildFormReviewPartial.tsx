@@ -27,7 +27,7 @@ export const AddChildFormReviewPartial = ({ isVisible, formData }: Props) => {
           </div>
           <div>
             <Label className="font-semibold">Date of birth</Label>
-            <p className="text-sm text-gray-500">{`${formData.dateOfBirth} (${getAgeInMonths(formData.dateOfBirth)})`}</p>
+            <p className="text-sm text-gray-500">{`${formData.dateOfBirth} (${getAgeInMonths(formData.dateOfBirth)} months)`}</p>
           </div>
           <div>
             <Label className="font-semibold">Gender</Label>
@@ -46,6 +46,10 @@ export const AddChildFormReviewPartial = ({ isVisible, formData }: Props) => {
           <div>
             <Label className="font-semibold">Measurement date</Label>
             <p className="text-sm text-gray-500">{formData.measuredAt}</p>
+          </div>
+          <div>
+            <Label className="font-semibold">Age at measurement (months)</Label>
+            <p className="text-sm text-gray-500">{formData.ageMonthsAtMeasurement}</p>
           </div>
           <div>
             <Label className="font-semibold">Weight</Label>

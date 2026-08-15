@@ -1,8 +1,9 @@
+import GhostDatatable from "@/components/GhostDatatable";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChildrenDataTable } from "@/features/children/components/ChildrenDataTable";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function page() {
   return (
@@ -15,11 +16,9 @@ export default function page() {
         </Link>
       </div>
       <hr className="my-6" />
-      <Card>
-        <CardContent>
-          <ChildrenDataTable />
-        </CardContent>
-      </Card>
+      <Suspense fallback={<GhostDatatable />}>
+        <ChildrenDataTable />
+      </Suspense>
     </div>
   );
 }

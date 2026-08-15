@@ -1,7 +1,7 @@
 "use server"
 
 import { authApi } from "@/lib/api";
-import { BackEndErrorResponse, ServerActionState } from "@/types";
+import { ServerActionState } from "@/types";
 import { AxiosError } from "axios";
 import { redirect } from "next/navigation";
 import { Child } from "./children-schema";
@@ -14,7 +14,7 @@ export async function addChildrenAction(prev: ServerActionState, formData: FormD
     sex: formData.get("sex") as string,
     assessment: {
       measuredAt: formData.get("measuredAt") as string,
-      ageMonthsAtMeasurement: 5,
+      ageMonthsAtMeasurement: formData.get("ageMonthsAtMeasurement") as string,
       weightKg: formData.get("weightKg") as string,
       heightCm: formData.get("heightCm") as string,
       muacCm: formData.get("muacCm") as string,

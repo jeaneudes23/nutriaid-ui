@@ -14,7 +14,7 @@ interface Props {
   appendAddChildFormData: ({ key, value }: AppendAddChildFormDataParams) => void;
 }
 
-export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appendAddChildFormData }: Props) => {
+export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, appendAddChildFormData }: Props) => {
   const { minDate, maxDate } = getDateRanges();
 
   return (
@@ -62,6 +62,18 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appe
             type="number"
             name="muacCm"
             id="muacCm"
+          />
+        </div>
+        <div className="grid gap-1">
+          <Label htmlFor="ageMonthsAtMeasurement">Age (months)</Label>
+          <Input
+            key={prevs?.ageMonthsAtMeasurement}
+            defaultValue={prevs?.ageMonthsAtMeasurement ?? 0}
+            onChange={(e) => appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
+            min={1}
+            type="number"
+            name="ageMonthsAtMeasurement"
+            id="ageMonthsAtMeasurement"
           />
         </div>
         <div className="grid gap-1">
