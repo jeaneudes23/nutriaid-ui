@@ -3,18 +3,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RulerDimensionLine } from "lucide-react";
 import React from "react";
-import { AppendAddChildFormDataParams } from "./AddChildForm";
-import { cn, getDateRanges } from "@/lib/utils";
+import { AppendCreateAssessmentFormDataParams } from "./CreateAssessmentForm";
+import { cn, getAgeInMonths, getDateRanges, parseDate } from "@/lib/utils";
 import { ServerActionState } from "@/types";
 
 interface Props {
   isVisible: boolean;
   prevs?: ServerActionState["prevs"];
   errors?: ServerActionState["errors"];
-  appendAddChildFormData: ({ key, value }: AppendAddChildFormDataParams) => void;
+  dateOfBirth: string;
+  appendCreateAssessmentFormData: ({ key, value }: AppendCreateAssessmentFormDataParams) => void;
 }
 
-export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appendAddChildFormData }: Props) => {
+export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, errors, dateOfBirth, appendCreateAssessmentFormData }: Props) => {
   const { minDate, maxDate } = getDateRanges();
 
   return (
@@ -32,7 +33,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appe
           <Input
             key={prevs?.weightKg}
             defaultValue={prevs?.weightKg ?? ""}
-            onChange={(e) => appendAddChildFormData({ key: "weightKg", value: e.target.value })}
+            onChange={(e) => appendCreateAssessmentFormData({ key: "weightKg", value: e.target.value })}
             min={1}
             type="number"
             name="weightKg"
@@ -44,7 +45,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appe
           <Input
             key={prevs?.heightCm}
             defaultValue={prevs?.heightCm ?? ""}
-            onChange={(e) => appendAddChildFormData({ key: "heightCm", value: e.target.value })}
+            onChange={(e) => appendCreateAssessmentFormData({ key: "heightCm", value: e.target.value })}
             min={1}
             type="number"
             name="heightCm"
@@ -57,11 +58,24 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appe
           <Input
             key={prevs?.muacCm}
             defaultValue={prevs?.muacCm ?? ""}
-            onChange={(e) => appendAddChildFormData({ key: "muacCm", value: e.target.value })}
+            onChange={(e) => appendCreateAssessmentFormData({ key: "muacCm", value: e.target.value })}
             min={1}
             type="number"
             name="muacCm"
             id="muacCm"
+          />
+        </div>
+        <div className="grid gap-1">
+          <Label htmlFor="ageMonthsAtMeasurement">Age (months)</Label>
+          <p className="text-xs text-gray-400">{`Date of birth: ${parseDate(dateOfBirth)} (${getAgeInMonths(dateOfBirth)} months)`}</p>
+          <Input
+            key={prevs?.ageMonthsAtMeasurement}
+            defaultValue={prevs?.ageMonthsAtMeasurement ?? getAgeInMonths(dateOfBirth)}
+            onChange={(e) => appendCreateAssessmentFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
+            min={1}
+            type="number"
+            name="ageMonthsAtMeasurement"
+            id="ageMonthsAtMeasurement"
           />
         </div>
         <div className="grid gap-1">
@@ -71,7 +85,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, errors, appe
             max={maxDate}
             key={prevs?.measuredAt}
             defaultValue={prevs?.measuredAt ?? maxDate}
-            onChange={(e) => appendAddChildFormData({ key: "measuredAt", value: e.target.value })}
+            onChange={(e) => appendCreateAssessmentFormData({ key: "measuredAt", value: e.target.value })}
             type="date"
             name="measuredAt"
             id="measuredAt"

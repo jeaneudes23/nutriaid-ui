@@ -11,12 +11,17 @@ export function getAgeInMonths(date: string): string {
 
   if (!date || date == "") return ""
 
-  const years = differenceInYears(today, date);
-  const months = differenceInMonths(today, date) - years * 12;
-
-  return `${years} years and ${months} months`
+  return differenceInMonths(today, date).toString();
 }
 
-export function parseDate(value: string): string {
+export function parseDate(value: string | Date): string {
   return new Date(value).toISOString().split('T')[0]
+}
+
+export function getDateRanges(): { minDate: string, maxDate: string } {
+  const today = new Date();
+  const maxDate = today.toISOString().split("T")[0];
+  today.setFullYear(today.getFullYear() - 5);
+  const minDate = today.toISOString().split("T")[0];
+  return { minDate, maxDate }
 }

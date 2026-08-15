@@ -1,6 +1,9 @@
 import { login } from "@/features/auth/auth-api"
+import { BackEndErrorResponse } from "@/types"
+import { AxiosError } from "axios"
 import NextAuth, { CredentialsSignin } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
+import { redirect } from "next/navigation"
 
 
 class InvalidLoginError extends CredentialsSignin {
@@ -40,3 +43,20 @@ export const { handlers, auth, signOut, signIn } = NextAuth({
     }
   }
 })
+
+export async function handleAxiosErrorOnServer(error: AxiosError): Promise<Record<string, string> | null> {
+  "use server"
+
+  if (error.response?.status == 401) {
+    await signOut({
+      redirect: true,
+      redirectTo: '/login'
+    })
+    return null
+  } else {
+    const errorData = error.response?.data as BackEndErrorResponse
+    const errors = errorData.errors.reduce((acc, error) => ({ ...acc, [error.param]: error.message }), {})
+    return errors
+  }
+
+}

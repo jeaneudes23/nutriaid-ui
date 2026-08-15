@@ -9,6 +9,8 @@ import { Toaster } from "react-hot-toast";
 const fontHeading = Atkinson_Hyperlegible_Next({
   variable: "--font-heading",
   weight: ["200", "300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  fallback: ["--font-normal"],
 });
 
 const fontNormal = Roboto({

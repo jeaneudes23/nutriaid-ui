@@ -5,6 +5,7 @@ import { BackEndErrorResponse, ServerActionState } from "@/types";
 import { AxiosError } from "axios";
 import { redirect } from "next/navigation";
 import { Child } from "./children-schema";
+import { handleAxiosErrorOnServer } from "@/lib/auth";
 
 export async function addChildrenAction(prev: ServerActionState, formData: FormData): Promise<ServerActionState> {
   const rawFormData = {
@@ -13,6 +14,7 @@ export async function addChildrenAction(prev: ServerActionState, formData: FormD
     sex: formData.get("sex") as string,
     assessment: {
       measuredAt: formData.get("measuredAt") as string,
+      ageMonthsAtMeasurement: 5,
       weightKg: formData.get("weightKg") as string,
       heightCm: formData.get("heightCm") as string,
       muacCm: formData.get("muacCm") as string,
@@ -33,8 +35,7 @@ export async function addChildrenAction(prev: ServerActionState, formData: FormD
 
   } catch (error) {
     if (error instanceof AxiosError && error.response?.data) {
-      const data = error.response.data as BackEndErrorResponse
-      const errors = data.errors.reduce((acc, error) => ({ ...acc, [error.param]: error.message }), {})
+      const errors = await handleAxiosErrorOnServer(error)
       return {
         success: false,
         message: error.response?.data?.title,

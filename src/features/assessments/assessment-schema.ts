@@ -1,6 +1,8 @@
+import { Child } from "../children/children-schema";
+
 export interface Assessment {
   _id: string;
-  childId: string;
+  childId: Child;
   caregiverId: string;
   measuredAt: Date;
   weightKg: number;
@@ -50,3 +52,4 @@ export interface PredictionProbabilities {
   Stunting: string;
   Wasting: string;
 }
+

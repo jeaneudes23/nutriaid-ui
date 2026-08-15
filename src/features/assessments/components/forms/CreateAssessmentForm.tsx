@@ -1,58 +1,54 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { cn, getDateRanges } from "@/lib/utils";
+import { cn, getAgeInMonths, getDateRanges } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import React, { useActionState, useEffect, useState } from "react";
-import { addChildrenAction } from "../../children-server-action";
-import { AddChildFormBasicInfoPartial } from "./AddChildFormBasicInfoPartial";
-import { AddChildFormMeasurementsPartial } from "./AddChildFormMeasurementsPartial";
-import { AddChildFormBioPartial } from "./AddChildFormBioPartial";
-import { AddChildFormReviewPartial } from "./AddChildFormReviewPartial";
+import { CreateAssessmentFormMeasurementsPartial } from "./CreateAssessmentFormMeasurementsPartial";
 import { SubmitButton } from "@/components/SubmitButton";
 import toast from "react-hot-toast";
+import { createAssessmentAction } from "../../assessment-server-action";
+import { CreateAssessmentFormBioPartial } from "./CreateAssessmentFormBioPartial";
+import { CreateAssessmentFormReviewPartial } from "./CreateAssessmentFormReviewPartial";
+import { Input } from "@/components/ui/input";
+import { Child } from "@/features/children/children-schema";
 
-const STEP_COUNT = 4;
-const STEPS = ["Identity", "Bio", "Measurements", "Review"];
+const STEPS = ["Measurements", "Bio", "Review"];
 
-export interface AddChildFormData {
-  displayName: string;
-  dateOfBirth: string;
-  sex: string;
+export interface CreateAssessmentFormData {
   heightCm: string;
   weightKg: string;
   muacCm: string;
+  ageMonthsAtMeasurement: string;
   measuredAt: string;
 }
 
-export interface AppendAddChildFormDataParams {
-  key: keyof AddChildFormData;
+export interface AppendCreateAssessmentFormDataParams {
+  key: keyof CreateAssessmentFormData;
   value: string;
 }
 
-export const AddChildForm = () => {
+export const CreateAssessmentForm = ({ child }: { child: Child }) => {
   const [step, setStep] = useState<number>(0);
 
   const { minDate, maxDate } = getDateRanges();
 
-  const [formData, setFormData] = useState<AddChildFormData>({
-    displayName: "",
-    dateOfBirth: maxDate,
-    sex: "",
+  const [formData, setFormData] = useState<CreateAssessmentFormData>({
     heightCm: "",
     weightKg: "",
     muacCm: "",
+    ageMonthsAtMeasurement: getAgeInMonths(child.dateOfBirth),
     measuredAt: maxDate,
   });
 
-  const appendAddChildFormData = ({ key, value }: AppendAddChildFormDataParams) => {
+  const appendCreateAssessmentFormData = ({ key, value }: AppendCreateAssessmentFormDataParams) => {
     setFormData({
       ...formData,
       [key]: value,
     });
   };
 
-  const [state, action] = useActionState(addChildrenAction, {});
+  const [state, action] = useActionState(createAssessmentAction, {});
 
   const stateRef = React.useRef<typeof state | null>(null);
 
@@ -71,7 +67,7 @@ export const AddChildForm = () => {
   return (
     <div className="grid gap-8">
       <div className="flex items-center gap-6">
-        {Array.from({ length: STEP_COUNT }, (_, i) => (
+        {Array.from({ length: STEPS.length }, (_, i) => (
           <div key={i} className="grid w-full gap-1">
             <span className={cn("text-sm font-medium transition-colors", i <= step ? "text-primary" : "")}>
               Step {i + 1}: {STEPS[i]}
@@ -87,20 +83,20 @@ export const AddChildForm = () => {
         ))}
       </div>
       <form action={action} className="grid gap-8">
+        <Input name="childId" id="childId" readOnly value={child._id} type="hidden" />
         <div>
-          <AddChildFormBasicInfoPartial prevs={state?.prevs} isVisible={step == 0} appendAddChildFormData={appendAddChildFormData} />
-          <AddChildFormMeasurementsPartial prevs={state?.prevs?.assessment} isVisible={step == 1} appendAddChildFormData={appendAddChildFormData} />
-          <AddChildFormBioPartial prevs={state?.prevs?.assessment} isVisible={step == 2} />
-          <AddChildFormReviewPartial isVisible={step == 3} formData={formData} />
+          <CreateAssessmentFormMeasurementsPartial dateOfBirth={child.dateOfBirth} prevs={state?.prevs} isVisible={step == 0} appendCreateAssessmentFormData={appendCreateAssessmentFormData} />
+          <CreateAssessmentFormBioPartial prevs={state?.prevs} isVisible={step == 1} />
+          <CreateAssessmentFormReviewPartial isVisible={step == 2} formData={formData} />
         </div>
         <div className="flex justify-between">
           <Button type="button" disabled={step == 0} variant={"outline"} onClick={() => setStep((prev) => prev - 1)}>
             <ArrowLeftIcon /> Back
           </Button>
-          <SubmitButton className={step == STEP_COUNT - 1 ? "cursor-pointer" : "hidden"} type="submit">
+          <SubmitButton className={step == STEPS.length - 1 ? "cursor-pointer" : "hidden"} type="submit">
             Add Child
           </SubmitButton>
-          <Button className={step !== STEP_COUNT - 1 ? "" : "hidden"} type="button" disabled={step == STEP_COUNT - 1} onClick={() => setStep((prev) => prev + 1)}>
+          <Button className={step !== STEPS.length - 1 ? "" : "hidden"} type="button" disabled={step == STEPS.length - 1} onClick={() => setStep((prev) => prev + 1)}>
             Next
             <ArrowRightIcon />
           </Button>
