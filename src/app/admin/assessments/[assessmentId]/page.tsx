@@ -1,10 +1,9 @@
 import { EmptyErrorMessage } from "@/components/ErrorMessages";
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserAvatar } from "@/components/UserAvatar";
 import { getAssessment } from "@/features/assessments/assessments-api";
-import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
-import { CheckIcon, CircleIcon, ExternalLinkIcon, MoveVerticalIcon, PersonStandingIcon, RulerDimensionLineIcon, ScaleIcon, ThumbsUpIcon, WeightIcon } from "lucide-react";
+import { getAgeInMonths, parseDate } from "@/lib/utils";
+import { CheckIcon, CircleIcon, ExternalLinkIcon, MoveVerticalIcon, PersonStandingIcon, WeightIcon } from "lucide-react";
 import Link from "next/link";
 
 const STATS = [

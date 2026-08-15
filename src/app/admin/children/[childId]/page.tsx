@@ -7,7 +7,19 @@ import { ChildWithAssessment } from "@/features/children/children-schema";
 import { ChildAssessmentsDatatable } from "@/features/children/components/ChildAssessmentsDatatable";
 import { ChildGrowthTrajectoryChart } from "@/features/children/components/ChildGrowthTrajectoryChart";
 import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
-import { ArrowRightIcon, ChartNoAxesCombinedIcon, CircleIcon, ListTodoIcon, PlusIcon, RulerDimensionLine, RulerDimensionLineIcon, ScaleIcon, ThumbsUpIcon, WeightIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  CalendarIcon,
+  ChartNoAxesCombinedIcon,
+  CircleIcon,
+  ListTodoIcon,
+  PlusIcon,
+  RulerDimensionLine,
+  RulerDimensionLineIcon,
+  ScaleIcon,
+  ThumbsUpIcon,
+  WeightIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 interface Props {
@@ -51,6 +63,18 @@ export default async function page({ params }: Props) {
 export async function ChildHeaderAndLastAssessment({ child }: { child: ChildWithAssessment }) {
   const STATS = [
     {
+      title: "Age",
+      icon: <CalendarIcon className="size-4" />,
+      value: child.lastAssessment.ageMonthsAtMeasurement,
+      unit: "months",
+    },
+    {
+      title: "Measured at",
+      icon: <CalendarIcon className="size-4" />,
+      value: parseDate(child.dateOfBirth),
+      unit: "",
+    },
+    {
       title: "Weight",
       icon: <WeightIcon className="size-4" />,
       value: child.lastAssessment.weightKg,
@@ -77,7 +101,7 @@ export async function ChildHeaderAndLastAssessment({ child }: { child: ChildWith
   ];
 
   return (
-    <>
+    <div className="grid grid-cols-2 gap-4">
       <div className="col-span-full flex items-start gap-4">
         <UserAvatar name={child.displayName} className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
         <div className="grid gap-1">
@@ -86,56 +110,56 @@ export async function ChildHeaderAndLastAssessment({ child }: { child: ChildWith
             <span className="font-semibold">ID:</span> {child.pseudonym}
           </div>
           <div>
-            <span className="font-semibold">Date of birth:</span> {parseDate(child.dateOfBirth)} ({getAgeInMonths(child.dateOfBirth)})
+            <span className="font-semibold">Date of birth:</span> {} ({getAgeInMonths(child.dateOfBirth)})
           </div>
           <div>
             <span className="font-semibold">Gender:</span> {child.sex}
           </div>
         </div>
       </div>
-      <Card className="grid grid-cols-2 gap-0 divide-x">
-        <div className="grid gap-4">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ChartNoAxesCombinedIcon className="text-primary" /> Last assessment
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-4">
-            {STATS.map((stat, i) => (
-              <div key={i} className="flex items-center justify-between rounded-md border bg-gray-100 p-2 text-sm shadow-xs">
-                <span className="inline-flex items-center gap-1">
-                  <span className="text-primary">{stat.icon}</span>
-                  <span className="font-medium">{stat.title}</span>
-                </span>
-                <span className="text-primary inline-flex items-center font-medium">
-                  {stat.value} {stat.unit}
-                </span>
-              </div>
-            ))}
-          </CardContent>
-          <CardFooter>
-            <Link className={cn(buttonVariants({ variant: "outline" }), "grow")} href={`/admin/assessments/${child.lastAssessment._id}`}>
-              View assessment
-              <ArrowRightIcon />
-            </Link>
-          </CardFooter>
-        </div>
-        <div className="grid gap-4">
-          <CardHeader>
-            <CardTitle className="flex justify-end gap-2">{child.lastAssessment.nutritionalStatus}</CardTitle>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <CardTitle>{child.lastAssessment.insight.title}</CardTitle>
-            <p>{child.lastAssessment.insight.body}</p>
-          </CardContent>
-          <CardFooter>
-            <Link className={cn(buttonVariants({}), "grow")} href={`/admin/assessments/${child.lastAssessment._id}`}>
-              View recommendations
-              <ArrowRightIcon />
-            </Link>
-          </CardFooter>
-        </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">Last assessment</CardTitle>
+        </CardHeader>
+        <CardContent className="grid grid-cols-2 gap-3">
+          {STATS.map((stat, i) => (
+            <div key={i} className="bg-primary/5 flex flex-wrap items-center justify-between rounded-md border p-2 text-sm shadow-xs">
+              <span className="inline-flex items-center gap-1">
+                <span className="text-primary">{stat.icon}</span>
+                <span className="font-medium">{stat.title}</span>
+              </span>
+              <span className="text-primary inline-flex items-center font-medium">
+                {stat.value} {stat.unit}
+              </span>
+            </div>
+          ))}
+        </CardContent>
+        <CardFooter>
+          <Link className={cn(buttonVariants({ variant: "outline" }), "grow")} href={`/admin/assessments/${child.lastAssessment._id}`}>
+            View assessment
+            <ArrowRightIcon />
+          </Link>
+        </CardFooter>
       </Card>
-    </>
+      <Card className="flex flex-col">
+        <CardHeader>
+          <CardTitle>Food recommendations</CardTitle>
+        </CardHeader>
+        <CardContent className="grow">
+          {child.lastAssessment.foodRecommendations.slice(0, 2).map((foodRecommendation) => (
+            <div key={foodRecommendation._id} className="border-primary bg-primary/5 rounded border-l-4 p-2 text-sm">
+              <div className="font-bold capitalize">{foodRecommendation.ingredients}</div>
+              <div className="text-muted-foreground">{foodRecommendation.howToPrepare}</div>
+            </div>
+          ))}
+        </CardContent>
+        <CardFooter className="grid">
+          <Link className={cn(buttonVariants({}), "grow")} href={`/admin/assessments/${child.lastAssessment._id}`}>
+            View all recommendations
+            <ArrowRightIcon />
+          </Link>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible_Next, Roboto } from "next/font/google";
+import { Atkinson_Hyperlegible_Next, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { CONFIG } from "@/lib/config";
@@ -13,7 +13,7 @@ const fontHeading = Atkinson_Hyperlegible_Next({
   fallback: ["--font-normal"],
 });
 
-const fontNormal = Roboto({
+const fontNormal = Geist({
   variable: "--font-normal",
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],

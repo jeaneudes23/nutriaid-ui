@@ -6,23 +6,23 @@ import React from "react";
 const STATS = [
   {
     icon: <BabyIcon className="size-4" />,
-    title: "Total children tracked",
+    title: "Total children profiles",
     value: 20,
     summary: "Children",
     trend: "net",
   },
   {
     icon: <TrendingUpIcon className="size-4" />,
-    title: "Currently",
+    title: "Total assessments completed",
     value: 20,
-    summary: "On track",
+    summary: "Assessments done",
     trend: "up",
   },
   {
     icon: <TrendingDownIcon className="size-4" />,
-    title: "Attention needed",
+    title: "Meals recommended",
     value: 20,
-    summary: "Off track",
+    summary: "Recommendations",
     trend: "down",
   },
 ];
