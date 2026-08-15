@@ -33,12 +33,12 @@ export const SignupForm = () => {
       <div className="grid gap-4">
         <div className="grid gap-1">
           <Label htmlFor="fullName">Full name</Label>
-          <Input defaultValue={state?.prevs?.fullName ?? ""} name="fullName" id="fullName" />
+          <Input key={state?.prevs?.fullName} defaultValue={state?.prevs?.fullName ?? ""} name="fullName" id="fullName" />
           <FormFielError error={state.errors?.fullName} />
         </div>
         <div className="grid gap-1">
           <Label htmlFor="email">Email address</Label>
-          <Input defaultValue={state?.prevs?.email ?? ""} name="email" type="email" id="email" />
+          <Input key={state?.prevs?.email} defaultValue={state?.prevs?.email ?? ""} name="email" type="email" id="email" />
           <FormFielError error={state?.errors?.email} />
         </div>
         <div className="grid gap-1">
