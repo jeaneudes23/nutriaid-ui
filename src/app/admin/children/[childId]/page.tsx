@@ -1,7 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserAvatar } from "@/components/UserAvatar";
+import { ChildGrowthTrajectoryChart } from "@/features/children/components/ChildGrowthTrajectoryChart";
 import { CircleIcon, RulerDimensionLine, RulerDimensionLineIcon, ScaleIcon, WeightIcon } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -53,33 +55,38 @@ export default async function page({ params }: Props) {
         <Button>Add measurements</Button>
       </div>
       <hr className="my-6" />
-      <div className="grid grid-cols-2">
-        <div className="grid grid-cols-2 gap-6">
-          <Card className="col-span-2 row-span-2">
+      <div className="grid gap-8">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="col-span-2 lg:row-span-2">
             <CardHeader>
               <div className="flex items-center gap-4">
-                <UserAvatar name="Emma Johnson" className="bg-primary/20 size-20 border-none text-center text-3xl font-extrabold" />
+                <UserAvatar name="Emma Johnson" className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
                 <div className="grid gap-1">
-                  <CardTitle className="font-heading text-3xl font-bold">Emma Johnson</CardTitle>
+                  <CardTitle className="font-heading text-2xl font-bold">Emma Johnson</CardTitle>
                   <CardDescription>ID: PC_9383_9393</CardDescription>
                 </div>
               </div>
             </CardHeader>
+            <CardContent className="grid grow grid-cols-2 items-center">
+              <div className="bg-primary/10 border-card-foreground/10 rounded-md border px-4 py-2 shadow-xs">
+                <div className="grid">
+                  <div className="">Age: </div>
+                  <div className="text-foreground font-bold">1y 6m</div>
+                </div>
+              </div>
+              <div className="bg-primary/10 border-card-foreground/10 rounded-md border px-4 py-2 shadow-xs">
+                <div className="grid">
+                  <div className="">Last update: </div>
+                  <div className="text-foreground font-bold">Oct 12 2026</div>
+                </div>
+              </div>
+            </CardContent>
+            <CardFooter className="grid">
+              <Link className={buttonVariants({})} href={`children/${122}/recommendations`}>
+                View recommendations
+              </Link>
+            </CardFooter>
           </Card>
-          <Card className="bg-primary/10">
-            <CardHeader>
-              <CardTitle>Age</CardTitle>
-              <CardDescription>1y 6m</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card className="bg-primary/10">
-            <CardHeader>
-              <CardTitle>Age</CardTitle>
-              <CardDescription>1y 6m</CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-        <div className="grid grid-cols-2 gap-6">
           {STATS.map((stat, i) => (
             <div key={i}>
               <Card>
@@ -89,7 +96,7 @@ export default async function page({ params }: Props) {
                     <span>{stat.icon}</span>
                   </CardTitle>
                   <CardDescription>
-                    <span className="font-heading text-foreground text-3xl font-bold">{stat.value}</span>
+                    <span className="font-heading text-foreground text-xl font-bold">{stat.value}</span>
                     <span className="font-medium"> {stat.unit}</span>
                   </CardDescription>
                   <div className="text-muted-foreground font-medium">{stat.summary}</div>
@@ -98,6 +105,7 @@ export default async function page({ params }: Props) {
             </div>
           ))}
         </div>
+        <ChildGrowthTrajectoryChart />
       </div>
     </div>
   );
