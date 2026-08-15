@@ -68,8 +68,8 @@ export function ClassificationOverviewWidget() {
         <div className="flex w-full justify-center gap-4">
           {chartData.map((data, i) => (
             <div key={i} className="flex items-center gap-1">
-              <span style={{ backgroundColor: chartConfig[data.category as keyof typeof chartConfig].color }} className={`size-3`}></span>
-              <span className="text-muted-foreground text-xs capitalize">{data.category}</span>
+              <span style={{ backgroundColor: chartConfig[data.category as keyof typeof chartConfig].color }} className={`size-4 rounded-full`}></span>
+              <span className="text-muted-foreground capitalize">{data.category}</span>
             </div>
           ))}
         </div>

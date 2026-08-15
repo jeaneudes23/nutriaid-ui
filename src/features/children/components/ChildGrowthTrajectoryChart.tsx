@@ -1,42 +1,48 @@
 "use client";
 
 import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const description = "A multiple line chart";
 
 const chartData = [
-  { month: "January", median: 14.2, current: 13.5 },
+  { month: "January", median: 14.2, current: 10.5 },
   { month: "February", median: 14.2, current: 13.7 },
   { month: "March", median: 14.2, current: 14.0 },
-  { month: "April", median: 14.2, current: 14.1 },
-  { month: "May", median: 14.2, current: 14.3 },
-  { month: "June", median: 14.2, current: 14.5 },
+  { month: "April", median: 14.2, current: 18.1 },
+  { month: "May", median: 14.2, current: 11.3 },
+  { month: "June", median: 14.2, current: 12.5 },
 ];
 
 const chartConfig = {
   median: {
     label: "Median",
-    color: "var(--chart-1)",
+    color: "var(--healthy)",
   },
   current: {
     label: "Current",
-    color: "var(--chart-2)",
+    color: "var(--primary)",
   },
 } satisfies ChartConfig;
 
 export function ChildGrowthTrajectoryChart() {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex items-center justify-between">
         <CardTitle>Child growth trajectory</CardTitle>
-        <div></div>
+        <div className="font-heading flex items-center gap-1 rounded-md border bg-gray-100 p-1 shadow-xs">
+          <button className={cn("bg-background text-primary rounded px-2 py-1 text-xs font-medium")}>Weight</button>
+          <button className={cn("rounded px-2 py-1 text-xs font-medium")}>Height</button>
+          <button className={cn("rounded px-2 py-1 text-xs font-medium")}>BMI</button>
+        </div>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="max-h-64">
           <LineChart
             accessibilityLayer
             data={chartData}
@@ -46,6 +52,7 @@ export function ChildGrowthTrajectoryChart() {
             }}
           >
             <CartesianGrid vertical={false} />
+            <YAxis />
             <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Line dataKey="median" type="monotone" stroke="var(--color-median)" strokeWidth={2} dot={false} />
@@ -53,14 +60,14 @@ export function ChildGrowthTrajectoryChart() {
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none font-medium">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="text-muted-foreground flex items-center gap-2 leading-none">Showing total visitors for the last 6 months</div>
-          </div>
+      <CardFooter className="flex items-center justify-center gap-6">
+        <div className="flex items-center gap-1">
+          <span style={{ backgroundColor: "var(--primary)" }} className="size-4 rounded-full"></span>
+          <span className="text-muted-foreground text-sm font-medium">Child&apos;s measurements</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span style={{ backgroundColor: "var(--healthy)" }} className="size-4 rounded-full"></span>
+          <span className="text-muted-foreground text-sm font-medium">WHO median value</span>
         </div>
       </CardFooter>
     </Card>

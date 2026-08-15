@@ -1,24 +1,24 @@
 import { buttonVariants } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChildrenDataTable } from "@/features/children/components/ChildrenDataTable";
-import { BabyIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function page() {
   return (
-    <div className="p-8">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-        <h2 className="font-heading text-xl font-bold lg:text-2xl">Children</h2>
+    <div className="grid gap-8 p-8">
+      <div className="flex items-center justify-between">
+        <div className="text-xl font-bold lg:text-2xl">Children</div>
         <Link className={buttonVariants({})} href={"children/add"}>
-          <BabyIcon />
+          <PlusIcon />
           Add Child
         </Link>
       </div>
-      <div>
-        <Card>
+      <Card>
+        <CardContent>
           <ChildrenDataTable />
-        </Card>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

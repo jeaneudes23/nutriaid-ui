@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { UserAvatar } from "@/components/UserAvatar";
 import { cn } from "@/lib/utils";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
@@ -21,10 +22,13 @@ export const ChildrenDataTable = () => {
       <TableBody>
         {Array.from({ length: 10 }, (_, i) => (
           <TableRow key={i}>
-            <TableCell>Jackie smith</TableCell>
+            <TableCell className="inline-flex items-center gap-2">
+              <UserAvatar name="Jackie Smith" className="bg-primary text-primary-foreground text-center" />
+              Jackie smith
+            </TableCell>
             <TableCell>1y 2m</TableCell>
             <TableCell>
-              <Badge>on track</Badge>
+              <Badge variant={"destructive"}>on track</Badge>
             </TableCell>
             <TableCell>8/12/2025</TableCell>
             <TableCell>

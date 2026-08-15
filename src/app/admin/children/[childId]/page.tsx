@@ -2,7 +2,9 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserAvatar } from "@/components/UserAvatar";
 import { ChildGrowthTrajectoryChart } from "@/features/children/components/ChildGrowthTrajectoryChart";
-import { CircleIcon, RulerDimensionLine, RulerDimensionLineIcon, ScaleIcon, WeightIcon } from "lucide-react";
+import { ChilMeasurementHistoryDataTable } from "@/features/children/components/ChildMeasurementHistoryDataTable";
+import { cn } from "@/lib/utils";
+import { CircleIcon, PlusIcon, RulerDimensionLine, RulerDimensionLineIcon, ScaleIcon, ThumbsUpIcon, WeightIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -52,7 +54,10 @@ export default async function page({ params }: Props) {
           <h2 className="font-heading text-xl font-bold lg:text-2xl">Growth Monitoring</h2>
           <p className="text-muted-foreground">Track physical measurements against WHO standards</p>
         </div>
-        <Button>Add measurements</Button>
+        <Link className={buttonVariants({})} href={`${1223}/measure`}>
+          <PlusIcon />
+          Add measurements
+        </Link>
       </div>
       <hr className="my-6" />
       <div className="grid gap-8">
@@ -82,7 +87,8 @@ export default async function page({ params }: Props) {
               </div>
             </CardContent>
             <CardFooter className="grid">
-              <Link className={buttonVariants({})} href={`children/${122}/recommendations`}>
+              <Link className={cn(buttonVariants({}))} href={`${122}/recommendations`}>
+                <ThumbsUpIcon />
                 View recommendations
               </Link>
             </CardFooter>
@@ -106,6 +112,7 @@ export default async function page({ params }: Props) {
           ))}
         </div>
         <ChildGrowthTrajectoryChart />
+        <ChilMeasurementHistoryDataTable />
       </div>
     </div>
   );

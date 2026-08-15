@@ -10,13 +10,9 @@ import { useState } from "react";
 import { CHILD_BIO_QUESTIONS } from "../child-bio-questions";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
-const STEP_COUNT = 4;
-const STEPS = ["Identity", "Bio", "Measurements", "Review"];
+const STEPS = ["Measurements", "Bio", "Review"];
 
 interface FormData {
-  name: string;
-  dob: string;
-  gender: string;
   height: string;
   weight: string;
   muac: string;
@@ -28,13 +24,10 @@ interface UpdateFormDateParams {
   value: string;
 }
 
-export const ChildrenCreateForm = () => {
+export const ChildrenMeasureForm = () => {
   const [step, setStep] = useState<number>(0);
 
   const [formData, setFormData] = useState<FormData>({
-    name: "",
-    dob: "",
-    gender: "",
     height: "",
     weight: "",
     muac: "",
@@ -51,7 +44,7 @@ export const ChildrenCreateForm = () => {
   return (
     <div className="grid gap-8">
       <div className="flex items-center gap-6">
-        {Array.from({ length: STEP_COUNT }, (_, i) => (
+        {Array.from({ length: STEPS.length }, (_, i) => (
           <div key={i} className="grid w-full gap-1">
             <span className={cn("text-sm font-medium transition-colors", i <= step ? "text-primary" : "")}>
               Step {i + 1}: {STEPS[i]}
@@ -68,63 +61,24 @@ export const ChildrenCreateForm = () => {
       </div>
       <form action="" className="grid gap-8">
         <div>
-          <BasicInfoStep isVisible={step == 0} updateFormData={updateFormData} />
-          <MeasurementsInfoStep isVisible={step == 1} updateFormData={updateFormData} />
-          <BioStep isVisible={step == 2} />
-          <ReviewStep isVisible={step == 3} formData={formData} />
+          <MeasurementsInfoStep isVisible={step == 0} updateFormData={updateFormData} />
+          <BioStep isVisible={step == 1} />
+          <ReviewStep isVisible={step == 2} formData={formData} />
         </div>
         <div className="flex justify-between">
           <Button type="button" disabled={step == 0} variant={"outline"} onClick={() => setStep((prev) => prev - 1)}>
             <ArrowLeftIcon /> Back
           </Button>
-          <Button className={step == STEP_COUNT - 1 ? "" : "hidden"} type="submit">
+          <Button className={step == STEPS.length - 1 ? "" : "hidden"} type="submit">
             Save
           </Button>
-          <Button className={step !== STEP_COUNT - 1 ? "" : "hidden"} type="button" disabled={step == STEP_COUNT - 1} onClick={() => setStep((prev) => prev + 1)}>
+          <Button className={step !== STEPS.length - 1 ? "" : "hidden"} type="button" disabled={step == STEPS.length - 1} onClick={() => setStep((prev) => prev + 1)}>
             Next
             <ArrowRightIcon />
           </Button>
         </div>
       </form>
     </div>
-  );
-};
-
-const BasicInfoStep = ({ isVisible, updateFormData }: { isVisible: boolean; updateFormData: ({ key, value }: UpdateFormDateParams) => void }) => {
-  return (
-    <Card className={cn(!isVisible ? "hidden" : "max-w-3xl")}>
-      <CardHeader>
-        <CardTitle className="inline-flex items-center gap-2">
-          <ListTodoIcon />
-          Child&apos;s Basic Info
-        </CardTitle>
-        <CardDescription>Provide basic identity details to begin the child&apos;s nutritional measurement assessment.</CardDescription>
-      </CardHeader>
-      <CardContent className="grid max-w-lg gap-4">
-        <div className="grid gap-1">
-          <Label>Child name</Label>
-          <Input onChange={(e) => updateFormData({ key: "name", value: e.target.value })} name="name" id="name" />
-        </div>
-        <div className="grid gap-1">
-          <Label>Date of birth</Label>
-          <Input onChange={(e) => updateFormData({ key: "dob", value: e.target.value })} type="date" name="name" id="name" />
-        </div>
-        <div className="grid gap-1">
-          <Label>Gender</Label>
-          <select
-            onChange={(e) => updateFormData({ key: "gender", value: e.target.value })}
-            className={cn(
-              "border-input file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 h-9 w-full min-w-0 rounded-md border bg-transparent px-2.5 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:ring-3 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:ring-3 md:text-sm",
-            )}
-            name="gender"
-            id="gender"
-          >
-            <option value={"male"}>Male</option>
-            <option value={"female"}>Female</option>
-          </select>
-        </div>
-      </CardContent>
-    </Card>
   );
 };
 
@@ -167,37 +121,11 @@ const ReviewStep = ({ isVisible, formData }: { isVisible: boolean; formData: For
       <Card>
         <CardHeader className="flex items-center gap-2">
           <CardTitle className="inline-flex items-center gap-2">
-            <ListTodoIcon />
-            Child&apos;s Basic Info
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-6">
-          <div>
-            <Label className="font-semibold">Child name</Label>
-            <p className="text-sm text-gray-500">{formData.name}</p>
-          </div>
-          <div>
-            <Label className="font-semibold">Date of birth</Label>
-            <p className="text-sm text-gray-500">{formData.dob}</p>
-          </div>
-          <div>
-            <Label className="font-semibold">Gender</Label>
-            <p className="text-sm text-gray-500">{formData.gender}</p>
-          </div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex items-center gap-2">
-          <CardTitle className="inline-flex items-center gap-2">
             <RulerDimensionLine />
             Measurements: Physical Data
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-6">
-          <div>
-            <Label className="font-semibold">Calculated Age</Label>
-            <p className="text-sm text-gray-500">{getAgeInMonths(formData.dob)}</p>
-          </div>
           <div>
             <Label className="font-semibold">Weight</Label>
             <p className="text-sm text-gray-500">{formData.weight} kgs</p>
