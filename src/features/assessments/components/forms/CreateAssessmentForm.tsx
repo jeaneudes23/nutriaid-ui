@@ -94,7 +94,7 @@ export const CreateAssessmentForm = ({ child }: { child: Child }) => {
             <ArrowLeftIcon /> Back
           </Button>
           <SubmitButton className={step == STEPS.length - 1 ? "cursor-pointer" : "hidden"} type="submit">
-            Add Child
+            Save assessment
           </SubmitButton>
           <Button className={step !== STEPS.length - 1 ? "" : "hidden"} type="button" disabled={step == STEPS.length - 1} onClick={() => setStep((prev) => prev + 1)}>
             Next
