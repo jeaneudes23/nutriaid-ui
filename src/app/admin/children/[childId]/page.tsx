@@ -4,7 +4,7 @@ import { UserAvatar } from "@/components/UserAvatar";
 import { ChildGrowthTrajectoryChart } from "@/features/children/components/ChildGrowthTrajectoryChart";
 import { ChilMeasurementHistoryDataTable } from "@/features/children/components/ChildMeasurementHistoryDataTable";
 import { cn } from "@/lib/utils";
-import { CircleIcon, ListTodoIcon, PlusIcon, RulerDimensionLine, RulerDimensionLineIcon, ScaleIcon, ThumbsUpIcon, WeightIcon } from "lucide-react";
+import { ArrowRightIcon, ChartNoAxesCombinedIcon, CircleIcon, ListTodoIcon, PlusIcon, RulerDimensionLine, RulerDimensionLineIcon, ScaleIcon, ThumbsUpIcon, WeightIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -61,69 +61,75 @@ export default async function page({ params }: Props) {
       </div>
       <hr className="my-6" />
       <div className="grid gap-8">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ListTodoIcon className="text-primary" /> Last assessment summary
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <Card className="col-span-2 lg:row-span-2">
-                <CardContent>
-                  <div className="flex items-center gap-4">
-                    <UserAvatar name="Emma Johnson" className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
-                    <div className="grid gap-1">
-                      <CardTitle className="font-heading text-2xl font-bold">Emma Johnson</CardTitle>
-                      <CardDescription>ID: PC_9383_9393</CardDescription>
-                    </div>
-                  </div>
-                  <div className="grid grow grid-cols-2 items-center gap-2">
-                    <div className="bg-primary/10 border-card-foreground/10 rounded-md border px-4 py-2 shadow-xs">
-                      <div className="grid">
-                        <div className="">Age: </div>
-                        <div className="text-foreground font-bold">1y 6m</div>
-                      </div>
-                    </div>
-                    <div className="bg-primary/10 border-card-foreground/10 rounded-md border px-4 py-2 shadow-xs">
-                      <div className="grid">
-                        <div className="">Last update: </div>
-                        <div className="text-foreground font-bold">Oct 12 2026</div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex items-center gap-4">
-                  <Link className={cn(buttonVariants({ variant: "outline" }), "grow")} href={`/admin/assessments/${122}`}>
-                    <ListTodoIcon />
-                    View assessment
-                  </Link>
-                  <Link className={cn(buttonVariants({}), "grow")} href={`/admin/recommendations/${4848}`}>
-                    <ThumbsUpIcon />
-                    View recommendations
-                  </Link>
-                </CardFooter>
-              </Card>
+        <div className="col-span-full flex items-start gap-4">
+          <UserAvatar name="Emma Johnson" className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
+          <div className="grid gap-1">
+            <div className="font-heading text-2xl font-bold">Emma Johnson</div>
+            <div>
+              <span className="font-semibold">ID:</span> PC_9383_9393
+            </div>
+            <div>
+              <span className="font-semibold">Date of birth:</span> 18/9/2026 (1y 3m)
+            </div>
+            <div>
+              <span className="font-semibold">Gender:</span> Male
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ChartNoAxesCombinedIcon className="text-primary" /> Last measurements
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4">
               {STATS.map((stat, i) => (
-                <div key={i}>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-sm">{stat.title}</span>
-                        <span>{stat.icon}</span>
-                      </CardTitle>
-                      <CardDescription>
-                        <span className="font-heading text-foreground text-xl font-bold">{stat.value}</span>
-                        <span className="font-medium"> {stat.unit}</span>
-                      </CardDescription>
-                      <div className="text-muted-foreground font-medium">{stat.summary}</div>
-                    </CardHeader>
-                  </Card>
+                <div key={i} className="flex items-center justify-between rounded-md border bg-gray-100 p-3 shadow-xs">
+                  <span className="inline-flex items-center gap-1">
+                    <span className="text-primary">{stat.icon}</span>
+                    <span className="font-medium">{stat.title}</span>
+                  </span>
+                  <span className="text-primary inline-flex items-center font-medium">
+                    {stat.value} {stat.unit}
+                  </span>
                 </div>
               ))}
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+            <CardFooter>
+              <Link className={cn(buttonVariants({ variant: "outline" }), "grow")} href={`/admin/assessments/${122}`}>
+                View assessment
+                <ArrowRightIcon />
+              </Link>
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ThumbsUpIcon className="text-primary" /> Recent recommendations
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4">
+              {STATS.map((stat, i) => (
+                <div key={i} className="flex items-center justify-between rounded-md border bg-gray-100 p-3 shadow-xs">
+                  <span className="inline-flex items-center gap-1">
+                    <span className="text-primary">{stat.icon}</span>
+                    <span className="font-medium">{stat.title}</span>
+                  </span>
+                  <span className="text-primary inline-flex items-center font-medium">
+                    {stat.value} {stat.unit}
+                  </span>
+                </div>
+              ))}
+            </CardContent>
+            <CardFooter>
+              <Link className={cn(buttonVariants({}), "grow")} href={`/admin/assessments/${122}`}>
+                View recommendations
+                <ArrowRightIcon />
+              </Link>
+            </CardFooter>
+          </Card>
+        </div>
         <ChildGrowthTrajectoryChart />
         <ChilMeasurementHistoryDataTable />
       </div>

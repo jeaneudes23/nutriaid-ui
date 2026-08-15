@@ -16,11 +16,6 @@ const SIDEBAR_LINKS = [
     href: "/admin/children",
   },
   {
-    icon: <ThumbsUpIcon className="size-5" />,
-    label: "Recommendations",
-    href: "/admin/recommendations",
-  },
-  {
     icon: <ChartNoAxesCombinedIcon className="size-5" />,
     label: "Monitoring",
     href: "/admin/assessments",
