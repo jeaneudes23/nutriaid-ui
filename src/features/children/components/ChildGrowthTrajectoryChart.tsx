@@ -1,6 +1,6 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
+import { TrendingUp, TrendingUpIcon } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,7 +34,10 @@ export function ChildGrowthTrajectoryChart() {
   return (
     <Card>
       <CardHeader className="flex items-center justify-between">
-        <CardTitle>Child growth trajectory</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <TrendingUpIcon className="text-primary" />
+          Child growth trajectory
+        </CardTitle>
         <div className="font-heading flex items-center gap-1 rounded-md border bg-gray-100 p-1 shadow-xs">
           <button className={cn("bg-background text-primary rounded px-2 py-1 text-xs font-medium")}>Weight</button>
           <button className={cn("rounded px-2 py-1 text-xs font-medium")}>Height</button>

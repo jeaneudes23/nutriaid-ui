@@ -6,14 +6,15 @@ import Link from "next/link";
 
 export default function page() {
   return (
-    <div className="grid gap-8 p-8">
+    <div className="p-8">
       <div className="flex items-center justify-between">
-        <div className="text-xl font-bold lg:text-2xl">Children</div>
+        <h2 className="text-xl font-bold lg:text-2xl">Children</h2>
         <Link className={buttonVariants({})} href={"children/add"}>
           <PlusIcon />
           Add Child
         </Link>
       </div>
+      <hr className="my-6" />
       <Card>
         <CardContent>
           <ChildrenDataTable />
