@@ -18,6 +18,7 @@ export const AddChildFormBasicInfoPartial = ({ isVisible, prevs, appendAddChildF
   const { minDate, maxDate } = getDateRanges();
   const updateDateValues = (e: React.ChangeEvent<HTMLInputElement>) => {
     appendAddChildFormData({ key: "dateOfBirth", value: e.target.value });
+    appendAddChildFormData({ key: "measuredAt", value: e.target.value });
     appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: getAgeInMonths(e.target.value) });
   };
   return (

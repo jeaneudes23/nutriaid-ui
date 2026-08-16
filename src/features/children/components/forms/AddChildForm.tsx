@@ -3,15 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { cn, getDateRanges } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import React, { useActionState, useEffect, useState } from "react";
 import { addChildrenAction } from "../../children-server-action";
 import { AddChildFormBasicInfoPartial } from "./AddChildFormBasicInfoPartial";
 import { AddChildFormMeasurementsPartial } from "./AddChildFormMeasurementsPartial";
 import { AddChildFormBioPartial } from "./AddChildFormBioPartial";
 import { AddChildFormReviewPartial } from "./AddChildFormReviewPartial";
 import { SubmitButton } from "@/components/SubmitButton";
-import toast from "react-hot-toast";
 import { useToast } from "@/hooks/useToast";
+import React from "react";
 
 const STEPS = ["Identity", "Measurements", "Bio", "Review"];
 
@@ -32,11 +31,11 @@ export interface AppendAddChildFormDataParams {
 }
 
 export const AddChildForm = () => {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = React.useState<number>(0);
 
   const { maxDate } = getDateRanges();
 
-  const [formData, setFormData] = useState<AddChildFormData>({
+  const [formData, setFormData] = React.useState<AddChildFormData>({
     displayName: "",
     dateOfBirth: maxDate,
     sex: "",
@@ -54,7 +53,7 @@ export const AddChildForm = () => {
     }));
   };
 
-  const [state, action] = useActionState(addChildrenAction, {});
+  const [state, action] = React.useActionState(addChildrenAction, {});
 
   useToast({ state });
 

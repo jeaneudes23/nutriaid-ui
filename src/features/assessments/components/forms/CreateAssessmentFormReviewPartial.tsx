@@ -3,14 +3,15 @@ import { CreateAssessmentFormData } from "./CreateAssessmentForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RulerDimensionLineIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { cn, getAgeInYearsAndMonths } from "@/lib/utils";
 
 interface Props {
   isVisible: boolean;
+  dateOfBirth: string;
   formData: CreateAssessmentFormData;
 }
 
-export const CreateAssessmentFormReviewPartial = ({ isVisible, formData }: Props) => {
+export const CreateAssessmentFormReviewPartial = ({ isVisible, dateOfBirth, formData }: Props) => {
   return (
     <div className={cn(!isVisible ? "hidden" : "grid gap-8")}>
       <Card>
@@ -26,8 +27,8 @@ export const CreateAssessmentFormReviewPartial = ({ isVisible, formData }: Props
             <p className="text-sm text-gray-500">{formData.measuredAt}</p>
           </div>
           <div>
-            <Label className="font-semibold">Age at measurement (months)</Label>
-            <p className="text-sm text-gray-500">{formData.ageMonthsAtMeasurement}</p>
+            <Label className="font-semibold">Age at measurement</Label>
+            <p className="text-sm text-gray-500">{getAgeInYearsAndMonths(dateOfBirth, formData.measuredAt)}</p>
           </div>
           <div>
             <Label className="font-semibold">Weight</Label>

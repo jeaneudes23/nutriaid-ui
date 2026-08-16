@@ -75,7 +75,7 @@ export const CreateAssessmentForm = ({ child }: { child: Child }) => {
         <div>
           <CreateAssessmentFormMeasurementsPartial dateOfBirth={child.dateOfBirth} prevs={state?.prevs} isVisible={step == 0} appendCreateAssessmentFormData={appendCreateAssessmentFormData} />
           <CreateAssessmentFormBioPartial prevs={state?.prevs} isVisible={step == 1} />
-          <CreateAssessmentFormReviewPartial isVisible={step == 2} formData={formData} />
+          <CreateAssessmentFormReviewPartial dateOfBirth={child.dateOfBirth} isVisible={step == 2} formData={formData} />
         </div>
         <div className="flex justify-between">
           <Button type="button" disabled={step == 0} variant={"outline"} onClick={() => setStep((prev) => prev - 1)}>
