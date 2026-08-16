@@ -15,5 +15,5 @@ export interface Child {
 }
 
 export interface ChildWithAssessment extends Child {
-  lastAssessment: Assessment
+  lastAssessment?: Assessment
 }

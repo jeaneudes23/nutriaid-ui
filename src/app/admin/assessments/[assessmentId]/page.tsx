@@ -1,37 +1,12 @@
 import { EmptyErrorMessage } from "@/components/ErrorMessages";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserAvatar } from "@/components/UserAvatar";
 import { getAssessment } from "@/features/assessments/assessments-api";
+import { getAssessmentStats } from "@/features/assessments/components/GetAssessmentStats";
+import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
 import { getAgeInMonths, parseDate } from "@/lib/utils";
-import { CheckIcon, CircleIcon, ExternalLinkIcon, MoveVerticalIcon, PersonStandingIcon, WeightIcon } from "lucide-react";
+import { CheckIcon, ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
-
-const STATS = [
-  {
-    title: "Weight",
-    icon: <WeightIcon className="size-5" />,
-    value: 14.2,
-    unit: "kg",
-  },
-  {
-    title: "Height",
-    icon: <MoveVerticalIcon className="size-5" />,
-    value: 69,
-    unit: "cm",
-  },
-  {
-    title: "Latest MUAC",
-    icon: <CircleIcon className="size-5" />,
-    value: 69,
-    unit: "cm",
-  },
-  {
-    title: "Latest BMI",
-    icon: <PersonStandingIcon className="size-5" />,
-    value: 69,
-    unit: "",
-  },
-];
 
 interface Props {
   params: Promise<{
@@ -47,6 +22,8 @@ export default async function page({ params }: Props) {
         <EmptyErrorMessage />
       </div>
     );
+
+  const STATS = getAssessmentStats(assessment);
   return (
     <div className="p-8">
       <div>
@@ -54,8 +31,8 @@ export default async function page({ params }: Props) {
         <p className="text-muted-foreground">Based on recent measurements recorded on {parseDate(assessment.measuredAt)}</p>
       </div>
       <hr className="my-6" />
-      <div className="grid grid-cols-3 gap-8">
-        <Card className="col-span-2">
+      <div className="grid grid-cols-2 gap-8">
+        <Card className="">
           <CardHeader className="flex items-center justify-between">
             <div className="group flex items-center gap-2">
               <UserAvatar name={assessment.childId.displayName} className="bg-primary text-primary-foreground text-center" />
@@ -68,21 +45,18 @@ export default async function page({ params }: Props) {
                 </p>
               </Link>
             </div>
-            <div className="bg-primary/10 text-primary border-primary inline-flex items-center gap-1 rounded-md border px-2 py-1 text-sm font-bold">
-              <CheckIcon />
-              {assessment.nutritionalStatus}
-            </div>
+            <NutritionStatusBadge status={assessment.nutritionalStatus} />
           </CardHeader>
           <CardContent>
             <h2 className="text-xl font-bold">{assessment.insight.title}</h2>
             {assessment.insight.body}
           </CardContent>
         </Card>
-        <Card>
+        <Card className="">
           <CardHeader>
             <CardTitle>Calculated metrics</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="grid grid-cols-2 gap-2 text-xs">
             {STATS.map((stat, i) => (
               <div key={i} className="flex items-center justify-between rounded-md border bg-gray-100 p-3 shadow-xs">
                 <span className="inline-flex items-center gap-1">
@@ -94,6 +68,15 @@ export default async function page({ params }: Props) {
                 </span>
               </div>
             ))}
+          </CardContent>
+        </Card>
+        <Card className="">
+          <CardHeader>
+            <CardTitle>Meal Recommendations</CardTitle>
+            <CardDescription></CardDescription>
+          </CardHeader>
+          <CardContent>
+            <pre>{JSON.stringify(assessment.foodRecommendations, null, 2)}</pre>
           </CardContent>
         </Card>
       </div>

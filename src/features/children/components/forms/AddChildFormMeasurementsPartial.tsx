@@ -34,7 +34,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             key={prevs?.weightKg}
             defaultValue={prevs?.weightKg ?? ""}
             onChange={(e) => appendAddChildFormData({ key: "weightKg", value: e.target.value })}
-            min={1}
+            min={0}
             type="number"
             name="weightKg"
             id="weightKg"
@@ -46,7 +46,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             key={prevs?.heightCm}
             defaultValue={prevs?.heightCm ?? ""}
             onChange={(e) => appendAddChildFormData({ key: "heightCm", value: e.target.value })}
-            min={1}
+            min={0}
             type="number"
             name="heightCm"
             id="heightCm"
@@ -59,7 +59,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             key={prevs?.muacCm}
             defaultValue={prevs?.muacCm ?? ""}
             onChange={(e) => appendAddChildFormData({ key: "muacCm", value: e.target.value })}
-            min={1}
+            min={0}
             type="number"
             name="muacCm"
             id="muacCm"
@@ -70,9 +70,9 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
           <p className="text-xs text-gray-400">{`Date of birth: ${parseDate(dateOfBirth)} (${getAgeInMonths(dateOfBirth)} months)`}</p>
           <Input
             key={getAgeInMonths(dateOfBirth)}
-            defaultValue={getAgeInMonths(dateOfBirth)}
+            defaultValue={getAgeInMonths(dateOfBirth) ?? 0}
             onChange={(e) => appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
-            min={1}
+            min={0}
             type="number"
             name="ageMonthsAtMeasurement"
             id="ageMonthsAtMeasurement"

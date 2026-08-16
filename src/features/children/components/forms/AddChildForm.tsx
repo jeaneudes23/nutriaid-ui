@@ -11,8 +11,8 @@ import { AddChildFormBioPartial } from "./AddChildFormBioPartial";
 import { AddChildFormReviewPartial } from "./AddChildFormReviewPartial";
 import { SubmitButton } from "@/components/SubmitButton";
 import toast from "react-hot-toast";
+import { useToast } from "@/hooks/useToast";
 
-const STEP_COUNT = 4;
 const STEPS = ["Identity", "Bio", "Measurements", "Review"];
 
 export interface AddChildFormData {
@@ -43,7 +43,7 @@ export const AddChildForm = () => {
     heightCm: "",
     weightKg: "",
     muacCm: "",
-    ageMonthsAtMeasurement: "0",
+    ageMonthsAtMeasurement: "1",
     measuredAt: maxDate,
   });
 
@@ -56,24 +56,12 @@ export const AddChildForm = () => {
 
   const [state, action] = useActionState(addChildrenAction, {});
 
-  const stateRef = React.useRef<typeof state | null>(null);
-
-  useEffect(() => {
-    if (stateRef.current == state || !state.message) return;
-    stateRef.current = state;
-
-    if (state.success) {
-      toast.success(state.message);
-    }
-    {
-      toast.error(state.message);
-    }
-  });
+  useToast({ state });
 
   return (
     <div className="grid gap-8">
       <div className="flex items-center gap-6">
-        {Array.from({ length: STEP_COUNT }, (_, i) => (
+        {Array.from({ length: STEPS.length }, (_, i) => (
           <div key={i} className="grid w-full gap-1">
             <span className={cn("text-sm font-medium transition-colors", i <= step ? "text-primary" : "")}>
               Step {i + 1}: {STEPS[i]}
@@ -99,10 +87,10 @@ export const AddChildForm = () => {
           <Button type="button" disabled={step == 0} variant={"outline"} onClick={() => setStep((prev) => prev - 1)}>
             <ArrowLeftIcon /> Back
           </Button>
-          <SubmitButton className={step == STEP_COUNT - 1 ? "cursor-pointer" : "hidden"} type="submit">
+          <SubmitButton className={step == STEPS.length - 1 ? "cursor-pointer" : "hidden"} type="submit">
             Add Child
           </SubmitButton>
-          <Button className={step !== STEP_COUNT - 1 ? "" : "hidden"} type="button" disabled={step == STEP_COUNT - 1} onClick={() => setStep((prev) => prev + 1)}>
+          <Button className={step !== STEPS.length - 1 ? "" : "hidden"} type="button" disabled={step == STEPS.length - 1} onClick={() => setStep((prev) => prev + 1)}>
             Next
             <ArrowRightIcon />
           </Button>

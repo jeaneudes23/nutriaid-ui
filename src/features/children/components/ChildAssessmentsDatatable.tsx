@@ -5,6 +5,7 @@ import { cn, parseDate } from "@/lib/utils";
 import { ExternalLinkIcon, RulerDimensionLineIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { getChildAssessments } from "../children-api";
+import DialogConfirmAction from "@/components/DialogConfirmAction";
 
 export const ChildAssessmentsDatatable = async ({ childId }: { childId: string }) => {
   const assessments = await getChildAssessments(childId);
@@ -41,9 +42,18 @@ export const ChildAssessmentsDatatable = async ({ childId }: { childId: string }
                   <Link href={`/admin/assessments/${assessment._id}`} className={cn(buttonVariants({ variant: "outline" }))}>
                     <ExternalLinkIcon className="size-4" />
                   </Link>
-                  <Button variant={"outline"}>
-                    <TrashIcon className="size-4" />
-                  </Button>
+                  <DialogConfirmAction
+                    triggerChildren={
+                      <span className={cn(buttonVariants({ variant: "destructive", className: "cursor-pointer" }))}>
+                        <TrashIcon />
+                      </span>
+                    }
+                    cardTitle={"Delete Assessment"}
+                    cardDescription={"Are you sure you want to delete this assessment?"}
+
+                    method="delete"
+                    apiUrl={`/assessments/${assessment._id}`}
+                  />
                 </TableCell>
               </TableRow>
             ))}
