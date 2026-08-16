@@ -32,7 +32,7 @@ export const AddChildFormBasicInfoPartial = ({ isVisible, prevs, appendAddChildF
       </CardHeader>
       <CardContent className="grid max-w-lg gap-4">
         <div className="grid gap-1">
-          <Label htmlFor="displayName">Child name</Label>
+          <Label htmlFor="displayName">Name</Label>
           <Input
             key={prevs?.displayName}
             defaultValue={prevs?.displayName ?? ""}
