@@ -1,9 +1,8 @@
 import { getAssessments } from "@/features/assessments/assessments-api";
 import { getChildren } from "@/features/children/children-api";
-import { ChildrensWidgets } from "@/features/dashboard/components/widgets/ChildrensWidgets";
+import { ChildrenTableWidget } from "@/features/dashboard/components/widgets/ChildrenTableWidget";
 import { ClassificationOverviewWidget } from "@/features/dashboard/components/widgets/ClassificationOverviewWidget";
 import { RecentAssessmentWidget } from "@/features/dashboard/components/widgets/RecentAssessmentWidget";
-import { RecommendationsWidget } from "@/features/dashboard/components/widgets/RecommendationsWidget";
 import { StatsOverviewWidget } from "@/features/dashboard/components/widgets/StatsOverviewWidget";
 
 export default async function page() {
@@ -26,7 +25,7 @@ export default async function page() {
           <ClassificationOverviewWidget children_p={children} />
           <RecentAssessmentWidget assessments={assessments.slice(0, 3)} />
         </div>
-        <ChildrensWidgets />
+        <ChildrenTableWidget />
       </div>
     </div>
   );

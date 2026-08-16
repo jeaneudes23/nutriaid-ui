@@ -1,10 +1,6 @@
-import { UserAvatar } from "@/components/UserAvatar";
 import { CreateAssessmentForm } from "@/features/assessments/components/forms/CreateAssessmentForm";
 import { getChild } from "@/features/children/children-api";
 import { ChildCard } from "@/features/children/components/ChildCard";
-import { getAgeInMonths } from "@/lib/utils";
-import { ExternalLinkIcon } from "lucide-react";
-import Link from "next/link";
 import React from "react";
 
 interface Props {
