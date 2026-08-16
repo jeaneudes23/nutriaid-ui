@@ -68,15 +68,15 @@ export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, date
             id="muacCm"
           />
         </div>
-        <div className="grid gap-1">
+        <div className="hidden">
           <Label htmlFor="ageMonthsAtMeasurement">Age (months)</Label>
           <p className="text-xs text-gray-400">{`Date of birth: ${parseDate(dateOfBirth)} (${getAgeInMonths(dateOfBirth)} months)`}</p>
           <Input
             key={prevs?.ageMonthsAtMeasurement}
             defaultValue={prevs?.ageMonthsAtMeasurement ?? getAgeInMonths(dateOfBirth)}
-            onChange={(e) => appendCreateAssessmentFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
-            min={0}
-            type="number"
+            // onChange={(e) => appendCreateAssessmentFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
+            // min={0}
+            // type="number"
             name="ageMonthsAtMeasurement"
             id="ageMonthsAtMeasurement"
           />

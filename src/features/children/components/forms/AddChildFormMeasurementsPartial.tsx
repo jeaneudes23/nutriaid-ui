@@ -68,15 +68,15 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             id="muacCm"
           />
         </div>
-        <div className="grid gap-1">
+        <div className="hidden">
           <Label htmlFor="ageMonthsAtMeasurement">Age (months)</Label>
           <p className="text-xs text-gray-400">{`Date of birth: ${parseDate(dateOfBirth)} (${getAgeInMonths(dateOfBirth)} months)`}</p>
           <Input
             key={getAgeInMonths(dateOfBirth)}
             defaultValue={getAgeInMonths(dateOfBirth) ?? 0}
-            onChange={(e) => appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
-            min={0}
-            type="number"
+            // onChange={(e) => appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
+            // min={0}
+            // type="number"
             name="ageMonthsAtMeasurement"
             id="ageMonthsAtMeasurement"
           />
