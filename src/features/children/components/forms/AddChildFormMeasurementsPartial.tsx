@@ -36,6 +36,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             onChange={(e) => appendAddChildFormData({ key: "weightKg", value: e.target.value })}
             min={0}
             type="number"
+            step={"any"}
             name="weightKg"
             id="weightKg"
           />
@@ -47,6 +48,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             defaultValue={prevs?.heightCm ?? ""}
             onChange={(e) => appendAddChildFormData({ key: "heightCm", value: e.target.value })}
             min={0}
+            step={"any"}
             type="number"
             name="heightCm"
             id="heightCm"
@@ -60,6 +62,7 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
             defaultValue={prevs?.muacCm ?? ""}
             onChange={(e) => appendAddChildFormData({ key: "muacCm", value: e.target.value })}
             min={0}
+            step={"any"}
             type="number"
             name="muacCm"
             id="muacCm"

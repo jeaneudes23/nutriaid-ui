@@ -1,14 +1,14 @@
 import DialogConfirmAction from "@/components/DialogConfirmAction";
 import { EmptyErrorMessage } from "@/components/ErrorMessages";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
 import { UserAvatar } from "@/components/UserAvatar";
 import { getAssessment } from "@/features/assessments/assessments-api";
 import { getAssessmentStats } from "@/features/assessments/components/GetAssessmentStats";
 import { MealRecommendation } from "@/features/assessments/components/MealRecommendation";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
 import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
-import { ArrowLeftIcon, ExternalLinkIcon, TrashIcon } from "lucide-react";
+import { ArrowLeftIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
@@ -91,7 +91,7 @@ export default async function page({ params }: Props) {
             <h2 className="text-lg font-bold lg:text-2xl">Meal Recommendations</h2>
             <CardDescription></CardDescription>
           </div>
-          <div className="grid max-w-2xl gap-4 text-sm">
+          <div className="grid gap-4 text-sm">
             {assessment.foodRecommendations.map((meal) => (
               <MealRecommendation meal={meal} key={meal._id} />
             ))}

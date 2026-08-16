@@ -35,6 +35,7 @@ export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, date
             defaultValue={prevs?.weightKg ?? ""}
             onChange={(e) => appendCreateAssessmentFormData({ key: "weightKg", value: e.target.value })}
             min={0}
+            step={"any"}
             type="number"
             name="weightKg"
             id="weightKg"
@@ -47,6 +48,7 @@ export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, date
             defaultValue={prevs?.heightCm ?? ""}
             onChange={(e) => appendCreateAssessmentFormData({ key: "heightCm", value: e.target.value })}
             min={0}
+            step={"any"}
             type="number"
             name="heightCm"
             id="heightCm"
@@ -60,6 +62,7 @@ export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, date
             defaultValue={prevs?.muacCm ?? ""}
             onChange={(e) => appendCreateAssessmentFormData({ key: "muacCm", value: e.target.value })}
             min={0}
+            step={"any"}
             type="number"
             name="muacCm"
             id="muacCm"

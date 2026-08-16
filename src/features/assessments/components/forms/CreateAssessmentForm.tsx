@@ -3,15 +3,15 @@
 import { Button } from "@/components/ui/button";
 import { cn, getAgeInMonths, getDateRanges } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import React, { useActionState, useEffect, useState } from "react";
+import React from "react";
 import { CreateAssessmentFormMeasurementsPartial } from "./CreateAssessmentFormMeasurementsPartial";
 import { SubmitButton } from "@/components/SubmitButton";
-import toast from "react-hot-toast";
 import { createAssessmentAction } from "../../assessment-server-action";
 import { CreateAssessmentFormBioPartial } from "./CreateAssessmentFormBioPartial";
 import { CreateAssessmentFormReviewPartial } from "./CreateAssessmentFormReviewPartial";
 import { Input } from "@/components/ui/input";
 import { Child } from "@/features/children/children-schema";
+import { useToast } from "@/hooks/useToast";
 
 const STEPS = ["Measurements", "Bio", "Review"];
 
@@ -29,11 +29,11 @@ export interface AppendCreateAssessmentFormDataParams {
 }
 
 export const CreateAssessmentForm = ({ child }: { child: Child }) => {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = React.useState<number>(0);
 
   const { maxDate } = getDateRanges();
 
-  const [formData, setFormData] = useState<CreateAssessmentFormData>({
+  const [formData, setFormData] = React.useState<CreateAssessmentFormData>({
     heightCm: "",
     weightKg: "",
     muacCm: "",
@@ -48,21 +48,9 @@ export const CreateAssessmentForm = ({ child }: { child: Child }) => {
     }));
   };
 
-  const [state, action] = useActionState(createAssessmentAction, {});
+  const [state, action] = React.useActionState(createAssessmentAction, {});
 
-  const stateRef = React.useRef<typeof state | null>(null);
-
-  useEffect(() => {
-    if (stateRef.current == state || !state.message) return;
-    stateRef.current = state;
-
-    if (state.success) {
-      toast.success(state.message);
-    }
-    {
-      toast.error(state.message);
-    }
-  });
+  useToast({ state });
 
   return (
     <div className="grid gap-8">

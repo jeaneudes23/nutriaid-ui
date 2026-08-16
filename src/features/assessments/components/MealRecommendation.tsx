@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FoodRecommendation } from "../assessment-schema";
-import { ChefHat, ChevronDown, ChevronDownIcon, ShoppingBasketIcon } from "lucide-react";
+import { ChefHat, ChevronDownIcon, ShoppingBasketIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
