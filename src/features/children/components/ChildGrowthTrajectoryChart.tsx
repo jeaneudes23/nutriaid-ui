@@ -1,11 +1,9 @@
 "use client";
 
-import { TrendingUp, TrendingUpIcon } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const description = "A multiple line chart";

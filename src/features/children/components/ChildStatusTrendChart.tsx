@@ -10,8 +10,6 @@ import { parseDate } from "@/lib/utils";
 
 type Status = "Wasting" | "Stunting" | "Healthy";
 
-// Signed severity: healthy renders above zero, concerns below.
-// Wasting is the more acute/severe condition, so it sits deeper than stunting.
 const STATUS_SCORE: Record<Status, number> = {
   Healthy: 1,
   Stunting: -1,
@@ -81,15 +79,14 @@ export function ChildStatusTrendChart({ assessments }: { assessments: Assessment
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-56">
-          <BarChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
+          <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} interval={0} />
-            <YAxis hide domain={[-2.5, 1.5]} />
+
             <ReferenceLine y={0} stroke="var(--border)" strokeWidth={1} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent labelKey="date" formatter={(_, __, item) => STATUS_LABEL[item.payload.status as Status]} />} />
             <Bar dataKey="value" radius={4}>
               {chartData.map((item, i) => (
-                // eslint-disable-next-line @typescript-eslint/no-deprecated -- Cell is correct here; `shape` breaks negative-value geometry
                 <Cell key={`${item.date}-${i}`} fill={STATUS_COLOR[item.status]} />
               ))}
             </Bar>
