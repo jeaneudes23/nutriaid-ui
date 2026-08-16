@@ -13,9 +13,9 @@ interface Props {
 export const MealRecommendation = ({ meal }: Props) => {
   const [open, setOpen] = React.useState<boolean>(false);
   return (
-    <div className="grid overflow-hidden rounded-md border">
+    <div className="grid max-w-2xl overflow-hidden rounded-md border">
       <button onClick={() => setOpen((prev) => !prev)} className="flex w-full cursor-pointer items-center border-b p-0 transition-colors hover:bg-gray-50">
-        <span className="bg-primary text-primary-foreground px-6 py-4 text-lg font-bold">{meal.priority}</span>
+        <span className="bg-primary/10 text-primary border-primary/40 border-r-2 px-6 py-4 text-lg font-bold">{meal.priority}</span>
         <div className="px-3">
           <h3 className="pb-0 text-lg font-semibold">{meal.name}</h3>
         </div>
@@ -24,7 +24,7 @@ export const MealRecommendation = ({ meal }: Props) => {
         </div>
       </button>
       <div className={cn(open ? "grid gap-6 p-6" : "hidden")}>
-        <div className="border-primary bg-primary/5 rounded border-l-4 px-4 py-2">{meal.why}</div>
+        <div className="border-primary/40 bg-primary/5 rounded border-l-4 px-4 py-2">{meal.why}</div>
         <div className="grid gap-2">
           <h3 className="inline-flex items-center gap-2 font-medium">
             <ShoppingBasketIcon />

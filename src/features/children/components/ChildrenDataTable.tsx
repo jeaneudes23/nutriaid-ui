@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { UserAvatar } from "@/components/UserAvatar";
-import { cn, getAgeInMonths, getAgeInYearsAndMonths } from "@/lib/utils";
+import { cn, getAgeInYearsAndMonths } from "@/lib/utils";
 import { BabyIcon, ExternalLinkIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { getChildren } from "../children-api";
