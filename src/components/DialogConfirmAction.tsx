@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { SubmitButton } from "./SubmitButton";
-import { Button, buttonVariants } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { performAction } from "@/actions/actions";
 import { useToast } from "@/hooks/useToast";
@@ -14,16 +14,20 @@ interface Props {
   cardDescription: React.ReactNode;
   method: "post" | "delete" | "patch";
   apiUrl: string;
+  redirectUrl?: string;
 }
-export default function DialogConfirmAction({ triggerChildren, cardDescription, cardTitle, method, apiUrl }: Props) {
+export default function DialogConfirmAction({ triggerChildren, cardDescription, cardTitle, method, apiUrl, redirectUrl }: Props) {
   const [state, action] = React.useActionState(performAction, {});
   const [open, setOpen] = React.useState<boolean>(false);
-  const { refresh } = useRouter();
+  const { refresh, push } = useRouter();
 
   const onSuccess = React.useCallback(() => {
     setOpen(false);
+    if (redirectUrl) {
+      push(redirectUrl);
+    }
     refresh();
-  }, [setOpen, refresh]);
+  }, [setOpen, refresh, push, redirectUrl]);
 
   useToast({ state, onSuccess });
 

@@ -25,7 +25,7 @@ export const AssessmentsDatatable = async () => {
       </CardHeader>
       <CardContent>
         {assessments.length == 0 ? (
-          <EmptyErrorMessage icon={<ChartNoAxesCombinedIcon className="size-16" strokeWidth={1} />} label="No child profiles available" />
+          <EmptyErrorMessage icon={<ChartNoAxesCombinedIcon className="size-16" strokeWidth={1} />} label="No assessments available" />
         ) : (
           <Table>
             <TableHeader>
