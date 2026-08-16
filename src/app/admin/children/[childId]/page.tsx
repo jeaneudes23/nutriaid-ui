@@ -147,9 +147,9 @@ export async function ChildHeaderAndLastAssessment({ child }: { child: ChildWith
         </CardHeader>
         <CardContent className="grow">
           {child.lastAssessment.foodRecommendations.slice(0, 2).map((foodRecommendation) => (
-            <div key={foodRecommendation._id} className="border-primary bg-primary/5 rounded border-l-4 p-2 text-sm">
+            <div key={foodRecommendation._id} className="border-primary bg-primary/5 rounded border-l-4 p-2">
               <div className="font-bold capitalize">{foodRecommendation.ingredients}</div>
-              <div className="text-muted-foreground">{foodRecommendation.howToPrepare}</div>
+              <div className="text-muted-foreground line-clamp-1">{foodRecommendation.howToPrepare}</div>
             </div>
           ))}
         </CardContent>

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
+import { cn, getAgeInMonths, getDateRanges } from "@/lib/utils";
 import { ListTodoIcon } from "lucide-react";
 import React from "react";
 import { AppendAddChildFormDataParams } from "./AddChildForm";
@@ -14,12 +14,12 @@ interface Props {
   appendAddChildFormData: ({ key, value }: AppendAddChildFormDataParams) => void;
 }
 
-export const AddChildFormBasicInfoPartial = ({ isVisible, prevs, errors, appendAddChildFormData }: Props) => {
-  const today = new Date();
-  const maxDate = today.toISOString().split("T")[0];
-  today.setFullYear(today.getFullYear() - 5);
-  const minDate = today.toISOString().split("T")[0];
-
+export const AddChildFormBasicInfoPartial = ({ isVisible, prevs, appendAddChildFormData }: Props) => {
+  const { minDate, maxDate } = getDateRanges();
+  const updateDateValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+    appendAddChildFormData({ key: "dateOfBirth", value: e.target.value });
+    appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: getAgeInMonths(e.target.value) });
+  };
   return (
     <Card className={cn(!isVisible ? "hidden" : "max-w-3xl")}>
       <CardHeader>
@@ -42,16 +42,7 @@ export const AddChildFormBasicInfoPartial = ({ isVisible, prevs, errors, appendA
         </div>
         <div className="grid gap-1">
           <Label htmlFor="dateOfBirth">Date of birth</Label>
-          <Input
-            key={prevs?.dateOfBirth}
-            defaultValue={prevs?.dateOfBirth ?? maxDate}
-            min={minDate}
-            max={maxDate}
-            onChange={(e) => appendAddChildFormData({ key: "dateOfBirth", value: e.target.value })}
-            type="date"
-            name="dateOfBirth"
-            id="dateOfBirth"
-          />
+          <Input key={prevs?.dateOfBirth} defaultValue={prevs?.dateOfBirth ?? maxDate} min={minDate} max={maxDate} onChange={updateDateValues} type="date" name="dateOfBirth" id="dateOfBirth" />
         </div>
         <div className="grid gap-1">
           <Label htmlFor="sex">Gender</Label>

@@ -22,7 +22,6 @@ export async function createAssessmentAction(prev: ServerActionState, formData: 
     householdContext: formData.get("householdContext") as string,
   }
 
-
   let assessmentId = null
 
   try {

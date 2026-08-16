@@ -4,17 +4,18 @@ import { Label } from "@/components/ui/label";
 import { RulerDimensionLine } from "lucide-react";
 import React from "react";
 import { AppendAddChildFormDataParams } from "./AddChildForm";
-import { cn, getDateRanges } from "@/lib/utils";
+import { cn, getAgeInMonths, getDateRanges, parseDate } from "@/lib/utils";
 import { ServerActionState } from "@/types";
 
 interface Props {
   isVisible: boolean;
+  dateOfBirth: string;
   prevs?: ServerActionState["prevs"];
   errors?: ServerActionState["errors"];
   appendAddChildFormData: ({ key, value }: AppendAddChildFormDataParams) => void;
 }
 
-export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, appendAddChildFormData }: Props) => {
+export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth, appendAddChildFormData }: Props) => {
   const { minDate, maxDate } = getDateRanges();
 
   return (
@@ -66,9 +67,10 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, appendAddChi
         </div>
         <div className="grid gap-1">
           <Label htmlFor="ageMonthsAtMeasurement">Age (months)</Label>
+          <p className="text-xs text-gray-400">{`Date of birth: ${parseDate(dateOfBirth)} (${getAgeInMonths(dateOfBirth)} months)`}</p>
           <Input
-            key={prevs?.ageMonthsAtMeasurement}
-            defaultValue={prevs?.ageMonthsAtMeasurement ?? 0}
+            key={getAgeInMonths(dateOfBirth)}
+            defaultValue={getAgeInMonths(dateOfBirth)}
             onChange={(e) => appendAddChildFormData({ key: "ageMonthsAtMeasurement", value: e.target.value })}
             min={1}
             type="number"

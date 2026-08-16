@@ -48,10 +48,10 @@ export const AddChildForm = () => {
   });
 
   const appendAddChildFormData = ({ key, value }: AppendAddChildFormDataParams) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [key]: value,
-    });
+    }));
   };
 
   const [state, action] = useActionState(addChildrenAction, {});
@@ -91,7 +91,7 @@ export const AddChildForm = () => {
       <form action={action} className="grid gap-8">
         <div>
           <AddChildFormBasicInfoPartial prevs={state?.prevs} isVisible={step == 0} appendAddChildFormData={appendAddChildFormData} />
-          <AddChildFormMeasurementsPartial prevs={state?.prevs?.assessment} isVisible={step == 1} appendAddChildFormData={appendAddChildFormData} />
+          <AddChildFormMeasurementsPartial dateOfBirth={formData.dateOfBirth} prevs={state?.prevs?.assessment} isVisible={step == 1} appendAddChildFormData={appendAddChildFormData} />
           <AddChildFormBioPartial prevs={state?.prevs?.assessment} isVisible={step == 2} />
           <AddChildFormReviewPartial isVisible={step == 3} formData={formData} />
         </div>

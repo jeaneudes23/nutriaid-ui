@@ -12,9 +12,13 @@ export async function getAssessment(id: string): Promise<AssessmentWithChild | n
 
 export async function getAssessments(limit?: number): Promise<Assessment[]> {
   try {
-    const res = await authApi.get('/assessments')
+    const res = await authApi.get('/assessments', {
+      params: {
+        limit: limit ?? 100
+      }
+    })
     return res.data.data.items
-  } catch (error) {
+  } catch {
     return []
   }
 }

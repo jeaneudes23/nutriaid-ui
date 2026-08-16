@@ -42,10 +42,10 @@ export const CreateAssessmentForm = ({ child }: { child: Child }) => {
   });
 
   const appendCreateAssessmentFormData = ({ key, value }: AppendCreateAssessmentFormDataParams) => {
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [key]: value,
-    });
+    }));
   };
 
   const [state, action] = useActionState(createAssessmentAction, {});

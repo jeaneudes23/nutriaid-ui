@@ -15,7 +15,7 @@ export const ChildrenDataTable = async () => {
   return (
     <Card>
       <CardHeader className="flex flex-wrap items-center justify-between gap-2">
-        <CardTitle>{children.length} children profiles</CardTitle>
+        <CardTitle>{children.length} profiles</CardTitle>
         <div>
           <SearchBox />
         </div>
