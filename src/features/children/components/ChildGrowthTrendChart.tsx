@@ -17,7 +17,7 @@ const chartConfig = {
 
 type MetricKey = keyof typeof chartConfig;
 
-export function ChildMeasurementsTrendChart({ assessments }: { assessments: Assessment[] }) {
+export function ChildGrowthTrendChart({ assessments }: { assessments: Assessment[] }) {
   const [metric, setMetric] = useState<MetricKey>("weight");
 
   const chartData = useMemo(
@@ -67,13 +67,13 @@ export function ChildMeasurementsTrendChart({ assessments }: { assessments: Asse
         </div>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-64">
-          <LineChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
+        <ChartContainer config={chartConfig} className="max-h-80">
+          <LineChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} />
             <YAxis />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Line dataKey={metric} type="monotone" stroke={`var(--color-${metric})`} strokeWidth={2} dot={false} />
+            <Line dataKey={metric} type="linear" stroke={`var(--color-${metric})`} strokeWidth={2} dot={false} />
           </LineChart>
         </ChartContainer>
       </CardContent>

@@ -29,9 +29,13 @@ export async function getChild(id: string): Promise<ChildWithAssessment | null> 
   }
 }
 
-export async function getChildAssessments(childId: string): Promise<Assessment[]> {
+export async function getChildAssessments(childId: string, limit?: number): Promise<Assessment[]> {
   try {
-    const res = await authApi.get(`/children/${childId}/assessments`)
+    const res = await authApi.get(`/children/${childId}/assessments`, {
+      params: {
+        limit: limit ?? 100
+      }
+    })
     return res.data.data.items
   } catch {
     return []

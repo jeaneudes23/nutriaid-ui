@@ -6,8 +6,8 @@ import { Assessment } from "@/features/assessments/assessment-schema";
 import { getAssessmentStats } from "@/features/assessments/components/GetAssessmentStats";
 import { getChild, getChildAssessments } from "@/features/children/children-api";
 import { ChildAssessmentsDatatable } from "@/features/children/components/ChildAssessmentsDatatable";
-import { ChildGrowthTrajectoryChart } from "@/features/children/components/ChildGrowthTrajectoryChart";
-import { ChildMeasurementsTrendChart } from "@/features/children/components/ChildMeasurementsTrendChart";
+import { ChildGrowthTrendChart } from "@/features/children/components/ChildGrowthTrendChart";
+import { ChildStatusTrendChart } from "@/features/children/components/ChildStatusTrendChart";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
 import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
 import { ArrowRightIcon, ChartNoAxesCombinedIcon, PlusIcon } from "lucide-react";
@@ -69,8 +69,8 @@ export default async function page({ params }: Props) {
             <EmptyErrorMessage label="No assessments recorded yet" icon={<ChartNoAxesCombinedIcon strokeWidth={1} className="size-16" />} />
           </Card>
         )}
-        <ChildMeasurementsTrendChart assessments={assessments} />
-        {/* <ChildGrowthTrajectoryChart /> */}
+        <ChildStatusTrendChart assessments={assessments.slice(0, 5)} />
+        <ChildGrowthTrendChart assessments={assessments.slice(0, 5)} />
         <ChildAssessmentsDatatable assessments={assessments} />
       </div>
     </div>

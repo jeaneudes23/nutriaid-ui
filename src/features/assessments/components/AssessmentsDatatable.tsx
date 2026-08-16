@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -6,7 +5,6 @@ import { UserAvatar } from "@/components/UserAvatar";
 import { cn, parseDate } from "@/lib/utils";
 import { ChartNoAxesCombinedIcon, ExternalLinkIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 import { getAssessments } from "../assessments-api";
 import { SearchBox } from "@/components/SearchBox";
 import { EmptyErrorMessage } from "@/components/ErrorMessages";

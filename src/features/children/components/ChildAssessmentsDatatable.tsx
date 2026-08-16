@@ -6,15 +6,13 @@ import { ExternalLinkIcon, RulerDimensionLineIcon, TrashIcon } from "lucide-reac
 import Link from "next/link";
 import DialogConfirmAction from "@/components/DialogConfirmAction";
 import { Assessment } from "@/features/assessments/assessment-schema";
+import { NutritionStatusBadge } from "./NutritionStatusBadge";
 
 export const ChildAssessmentsDatatable = ({ assessments }: { assessments: Assessment[] }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <RulerDimensionLineIcon className="text-primary" />
-          Assessment history
-        </CardTitle>
+        <CardTitle className="flex items-center gap-2">Assessment history</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
@@ -23,7 +21,8 @@ export const ChildAssessmentsDatatable = ({ assessments }: { assessments: Assess
               <TableHead>Weight (kg)</TableHead>
               <TableHead>Height (cm)</TableHead>
               <TableHead>MUAC (cm)</TableHead>
-              <TableHead>Age (months)</TableHead>
+              <TableHead>BMI</TableHead>
+              <TableHead>Status</TableHead>
               <TableHead>Date measured</TableHead>
               <TableHead></TableHead>
             </TableRow>
@@ -34,7 +33,14 @@ export const ChildAssessmentsDatatable = ({ assessments }: { assessments: Assess
                 <TableCell>{assessment.weightKg}</TableCell>
                 <TableCell>{assessment.heightCm}</TableCell>
                 <TableCell>{assessment.muacCm}</TableCell>
-                <TableCell>{assessment.ageMonthsAtMeasurement}</TableCell>
+                <TableCell>{assessment.bmi.toFixed(2)}</TableCell>
+                <TableCell>
+                  <NutritionStatusBadge
+                    showIcon={false}
+                    status={assessment.nutritionalStatus}
+                    className="flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs text-white [&>svg]:size-3 [&>svg]:shrink-0"
+                  />
+                </TableCell>
                 <TableCell>{parseDate(assessment.measuredAt)}</TableCell>
                 <TableCell className="flex gap-2">
                   <Link href={`/admin/assessments/${assessment._id}`} className={cn(buttonVariants({ variant: "outline" }))}>

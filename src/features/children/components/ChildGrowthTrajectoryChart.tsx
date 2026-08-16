@@ -43,14 +43,7 @@ export function ChildGrowthTrajectoryChart() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-64">
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
+          <LineChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <YAxis />
             <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />

@@ -84,6 +84,15 @@
   --stunting: oklch(0.48 0.14 65);
   --wasting: oklch(0.42 0.20 25);
   --healthy: oklch(0.45 0.14 150);
+
+  --weight: oklch(0.48 0.20 258);
+  /* indigo */
+  --height: oklch(0.50 0.13 195);
+  /* deep teal */
+  --muac: oklch(0.48 0.22 320);
+  /* violet-magenta */
+  --bmi: oklch(0.55 0.19 350);
+  /* deep rose */
 }
 
 
