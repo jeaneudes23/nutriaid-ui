@@ -45,6 +45,14 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-weight: var(--weight);
+  --color-height: var(--height);
+  --color-muac: var(--muac);
+  --color-bmi: var(--bmi);
+  --color-stunting: var(--stunting);
+  --color-wasting: var(--wasting);
+  --color-healthy: var(--healthy);
 }
 
 :root {
@@ -86,13 +94,9 @@
   --healthy: oklch(0.45 0.14 150);
 
   --weight: oklch(0.48 0.20 258);
-  /* indigo */
   --height: oklch(0.50 0.13 195);
-  /* deep teal */
   --muac: oklch(0.48 0.22 320);
-  /* violet-magenta */
   --bmi: oklch(0.55 0.19 350);
-  /* deep rose */
 }
 
 

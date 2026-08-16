@@ -6,12 +6,28 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function getAgeInYearsAndMonths(start: string, from?: string): string {
+  const end = from ? new Date(from).toLocaleDateString() : new Date().toLocaleDateString()
+
+  if (!end) return "<1m"
+
+  const m = differenceInMonths(end, start);
+  const y = differenceInYears(end, start);
+
+  if (m < 1) return "<1m"
+
+  return `${y > 0 ? `${y}y` : ''} ${m - y * 12 > 0 ? `${m - y * 12}m` : ''}`
+}
+
 export function getAgeInMonths(date: string): string {
   const today = new Date().toLocaleDateString()
 
   if (!date) return ""
 
-  return differenceInMonths(today, date).toString();
+  const m = differenceInMonths(today, date);
+
+
+  return m < 1 ? "<1m" : `${differenceInMonths(today, date).toString()}m`;
 }
 
 export function parseDate(value: string | Date): string {

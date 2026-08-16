@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { UserAvatar } from "@/components/UserAvatar";
-import { cn, getAgeInMonths } from "@/lib/utils";
+import { cn, getAgeInMonths, getAgeInYearsAndMonths } from "@/lib/utils";
 import { BabyIcon, ExternalLinkIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 import { getChildren } from "../children-api";
@@ -31,7 +31,7 @@ export const ChildrenDataTable = async () => {
               <TableRow>
                 <TableHead>Full name</TableHead>
                 <TableHead>Gender</TableHead>
-                <TableHead>Age (months)</TableHead>
+                <TableHead>Age</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead></TableHead>
               </TableRow>
@@ -46,7 +46,7 @@ export const ChildrenDataTable = async () => {
                   <TableCell>
                     <Badge variant={"secondary"}>{child.sex}</Badge>
                   </TableCell>
-                  <TableCell>{getAgeInMonths(child.dateOfBirth)}</TableCell>
+                  <TableCell>{getAgeInYearsAndMonths(child.dateOfBirth)}</TableCell>
                   <TableCell className="w-fit">
                     <NutritionStatusBadge
                       showIcon={false}

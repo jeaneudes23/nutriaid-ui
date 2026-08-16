@@ -84,10 +84,10 @@ export const AddChildFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth,
         <div className="grid gap-1">
           <Label>Measurement date</Label>
           <Input
-            min={minDate}
+            min={dateOfBirth}
             max={maxDate}
-            key={prevs?.measuredAt}
-            defaultValue={prevs?.measuredAt ?? maxDate}
+            key={prevs?.measuredAt ?? dateOfBirth}
+            defaultValue={prevs?.measuredAt ?? dateOfBirth}
             onChange={(e) => appendAddChildFormData({ key: "measuredAt", value: e.target.value })}
             type="date"
             name="measuredAt"

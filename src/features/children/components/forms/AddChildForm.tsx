@@ -13,7 +13,7 @@ import { SubmitButton } from "@/components/SubmitButton";
 import toast from "react-hot-toast";
 import { useToast } from "@/hooks/useToast";
 
-const STEPS = ["Identity", "Bio", "Measurements", "Review"];
+const STEPS = ["Identity", "Measurements", "Bio", "Review"];
 
 export interface AddChildFormData {
   displayName: string;

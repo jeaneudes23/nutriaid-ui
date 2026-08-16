@@ -1,37 +1,61 @@
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { Child } from "@/features/children/children-schema";
 
-const chartData = [
-  { category: "stunting", children: 275, fill: "var(--color-stunting)" },
-  { category: "wasting", children: 200, fill: "var(--color-wasting)" },
-  { category: "healthy", children: 287, fill: "var(--color-healthy)" },
-];
+export function ClassificationOverviewWidget({ children_p }: { children_p: Child[] }) {
+  type Status = "Wasting" | "Stunting" | "Healthy";
 
-const chartConfig = {
-  stunting: {
-    label: "Stunting",
-    color: "var(--stunting)",
-  },
-  wasting: {
-    label: "Wasting",
-    color: "var(--wasting)",
-  },
-  healthy: {
-    label: "Healthy",
-    color: "var(--healthy)",
-  },
-} satisfies ChartConfig;
+  const categoriesCount = children_p.reduce<Record<Status, number>>(
+    (acc, a) => {
+      const status = a.status as Status;
+      acc[status] = (acc[status] ?? 0) + 1;
+      return acc;
+    },
+    { Wasting: 0, Stunting: 0, Healthy: 0 },
+  );
 
-export function ClassificationOverviewWidget() {
+  const chartData = React.useMemo(
+    () =>
+      (Object.keys(categoriesCount) as Status[]).map((status) => ({
+        category: status,
+        children: categoriesCount[status],
+        fill: `var(--${status.toLocaleLowerCase()})`,
+      })),
+    [categoriesCount],
+  );
+
+  const chartConfig = {
+    Stunting: {
+      label: "Stunting",
+      color: "var(--stunting)",
+    },
+    Wasting: {
+      label: "Wasting",
+      color: "var(--wasting)",
+    },
+    Healthy: {
+      label: "Healthy",
+      color: "var(--healthy)",
+    },
+  } satisfies ChartConfig;
+
   const totalChildren = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.children, 0);
-  }, []);
+  }, [chartData]);
+
+  if (totalChildren === 0)
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>No child profiles available</CardTitle>
+        </CardHeader>
+      </Card>
+    );
 
   return (
     <Card className="flex flex-col">

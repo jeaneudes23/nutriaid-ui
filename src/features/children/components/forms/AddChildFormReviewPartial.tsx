@@ -3,7 +3,7 @@ import { AddChildFormData } from "./AddChildForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ListTodoIcon, RulerDimensionLineIcon } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { cn, getAgeInMonths } from "@/lib/utils";
+import { cn, getAgeInYearsAndMonths } from "@/lib/utils";
 
 interface Props {
   isVisible: boolean;
@@ -27,7 +27,7 @@ export const AddChildFormReviewPartial = ({ isVisible, formData }: Props) => {
           </div>
           <div>
             <Label className="font-semibold">Date of birth</Label>
-            <p className="text-sm text-gray-500">{`${formData.dateOfBirth} (${getAgeInMonths(formData.dateOfBirth)} months)`}</p>
+            <p className="text-sm text-gray-500">{`${formData.dateOfBirth} (${getAgeInYearsAndMonths(formData.dateOfBirth)})`}</p>
           </div>
           <div>
             <Label className="font-semibold">Gender</Label>
@@ -42,14 +42,14 @@ export const AddChildFormReviewPartial = ({ isVisible, formData }: Props) => {
             Measurements: Physical Data
           </CardTitle>
         </CardHeader>
-        <CardContent className="grid grid-cols-2 gap-6">
+        <CardContent className="grid grid-cols-2 items-start gap-6">
           <div>
             <Label className="font-semibold">Measurement date</Label>
             <p className="text-sm text-gray-500">{formData.measuredAt}</p>
           </div>
           <div>
             <Label className="font-semibold">Age at measurement</Label>
-            <p className="text-sm text-gray-500">{formData.ageMonthsAtMeasurement} months</p>
+            <p className="text-sm text-gray-500">{getAgeInYearsAndMonths(formData.dateOfBirth, formData.measuredAt)}</p>
           </div>
           <div>
             <Label className="font-semibold">Weight</Label>

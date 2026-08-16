@@ -1,3 +1,4 @@
+import DialogConfirmAction from "@/components/DialogConfirmAction";
 import { EmptyErrorMessage } from "@/components/ErrorMessages";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,8 +10,8 @@ import { ChildAssessmentsDatatable } from "@/features/children/components/ChildA
 import { ChildGrowthTrendChart } from "@/features/children/components/ChildGrowthTrendChart";
 import { ChildStatusTrendChart } from "@/features/children/components/ChildStatusTrendChart";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
-import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
-import { ArrowRightIcon, ChartNoAxesCombinedIcon, PlusIcon } from "lucide-react";
+import { cn, getAgeInYearsAndMonths, parseDate } from "@/lib/utils";
+import { ArrowLeftIcon, ArrowRightIcon, ChartNoAxesCombinedIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
 interface Props {
@@ -33,11 +34,27 @@ export default async function page({ params }: Props) {
 
   return (
     <div className="p-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="grid gap-1">
+          <Link href={"/admin/children"} className={cn(buttonVariants({ variant: "ghost", className: "justify-self-start" }))}>
+            <ArrowLeftIcon />
+            All Children profiles
+          </Link>
           <h2 className="text-xl font-bold lg:text-2xl">Growth Monitoring</h2>
-          <p className="text-muted-foreground">Track physical measurements against WHO standards</p>
         </div>
+        <DialogConfirmAction
+          triggerChildren={
+            <span className={cn(buttonVariants({ variant: "destructive", className: "cursor-pointer" }))}>
+              <TrashIcon />
+              Delete
+            </span>
+          }
+          cardTitle={"Remove Child Profile"}
+          cardDescription={"Are you sure you want to permanently delete this child profile?"}
+          redirectUrl="/admin/children"
+          method="delete"
+          apiUrl={`/children/${child._id}`}
+        />
       </div>
       <hr className="my-6" />
       <div className="grid gap-8">
@@ -50,7 +67,7 @@ export default async function page({ params }: Props) {
                 <span className="font-semibold">ID:</span> {child.pseudonym}
               </div>
               <div>
-                <span className="font-semibold">Date of birth:</span> {parseDate(child.dateOfBirth)} ({getAgeInMonths(child.dateOfBirth)} months)
+                <span className="font-semibold">Date of birth:</span> {parseDate(child.dateOfBirth)} ({getAgeInYearsAndMonths(child.dateOfBirth)})
               </div>
               <div>
                 <span className="font-semibold">Gender:</span> {child.sex}

@@ -6,6 +6,7 @@ import { UserAvatar } from "@/components/UserAvatar";
 import { getAssessment } from "@/features/assessments/assessments-api";
 import { getAssessmentStats } from "@/features/assessments/components/GetAssessmentStats";
 import { MealRecommendation } from "@/features/assessments/components/MealRecommendation";
+import { ChildCard } from "@/features/children/components/ChildCard";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
 import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
 import { ArrowLeftIcon, TrashIcon } from "lucide-react";
@@ -54,15 +55,7 @@ export default async function page({ params }: Props) {
       <div className="grid gap-8">
         <Card>
           <CardHeader className="flex items-center justify-between">
-            <div className="group flex items-center gap-2">
-              <UserAvatar name={assessment.childId.displayName} className="bg-primary text-primary-foreground text-center" />
-              <Link href={`/admin/children/${assessment.childId._id}`}>
-                <p className="group-hover:text-primary inline-flex items-center gap-2 font-semibold group-hover:underline">{assessment.childId.displayName}</p>
-                <p className="text-muted-foreground text-xs font-medium">
-                  {assessment.childId.sex}, {`${parseDate(assessment.childId.dateOfBirth)} (${getAgeInMonths(assessment.childId.dateOfBirth)} months)`}
-                </p>
-              </Link>
-            </div>
+            <ChildCard child={assessment.childId} />
             <NutritionStatusBadge status={assessment.nutritionalStatus} />
           </CardHeader>
           <CardContent>

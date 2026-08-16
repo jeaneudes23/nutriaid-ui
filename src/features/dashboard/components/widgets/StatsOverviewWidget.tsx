@@ -1,50 +1,38 @@
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { BabyIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
-import React from "react";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { BabyIcon, ChartNoAxesCombinedIcon, ForkKnifeIcon } from "lucide-react";
 
-const STATS = [
-  {
-    icon: <BabyIcon className="size-4" />,
-    title: "Total children profiles",
-    value: 20,
-    summary: "Children",
-    trend: "net",
-  },
-  {
-    icon: <TrendingUpIcon className="size-4" />,
-    title: "Total assessments completed",
-    value: 20,
-    summary: "Assessments done",
-    trend: "up",
-  },
-  {
-    icon: <TrendingDownIcon className="size-4" />,
-    title: "Meals recommended",
-    value: 20,
-    summary: "Recommendations",
-    trend: "down",
-  },
-];
-export const StatsOverviewWidget = () => {
+export const StatsOverviewWidget = ({ values }: { values: { children: number; assessments: number; foodRecommendations: number } }) => {
+  const STATS = [
+    {
+      icon: <BabyIcon className="size-5" />,
+      title: "Children profiles",
+      value: values.children,
+    },
+    {
+      icon: <ChartNoAxesCombinedIcon className="size-5" />,
+      title: "Assessments completed",
+      value: values.assessments,
+    },
+    {
+      icon: <ForkKnifeIcon className="size-5" />,
+      title: "Meals recommended",
+      value: values.foodRecommendations,
+    },
+  ];
+
   return (
-    <div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-        {STATS.map((stat, i) => (
-          <Card key={i} className="pb-0">
-            <CardHeader>
-              <CardTitle className="text-muted-foreground text-sm">{stat.title}</CardTitle>
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+      {STATS.map((stat, i) => (
+        <Card key={i}>
+          <CardHeader className="flex flex-row items-center gap-4">
+            <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-full">{stat.icon}</div>
+            <div>
               <div className="text-2xl font-bold">{stat.value}</div>
-              <div className={cn("flex items-center gap-2", stat.trend == "up" ? "text-green-600" : stat.trend == "down" ? "text-destructive" : "text-yellow-600")}>
-                {stat.summary} {stat.icon}
-              </div>
-            </CardHeader>
-            <CardFooter
-              className={cn("border-t-2 pt-4", stat.trend == "up" ? "border-green-600 bg-green-600/10" : stat.trend == "down" ? "border-red-600 bg-red-600/10" : "border-yellow-600 bg-yellow-600/10")}
-            ></CardFooter>
-          </Card>
-        ))}
-      </div>
+              <CardTitle className="text-muted-foreground text-sm font-medium">{stat.title}</CardTitle>
+            </div>
+          </CardHeader>
+        </Card>
+      ))}
     </div>
   );
 };

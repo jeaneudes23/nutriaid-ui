@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, dateOfBirth, appendCreateAssessmentFormData }: Props) => {
-  const { minDate, maxDate } = getDateRanges();
+  const { maxDate } = getDateRanges();
 
   return (
     <Card className={cn(!isVisible ? "hidden" : "max-w-3xl")}>
@@ -84,7 +84,7 @@ export const CreateAssessmentFormMeasurementsPartial = ({ isVisible, prevs, date
         <div className="grid gap-1">
           <Label>Measurement date</Label>
           <Input
-            min={minDate}
+            min={parseDate(dateOfBirth)}
             max={maxDate}
             key={prevs?.measuredAt}
             defaultValue={prevs?.measuredAt ?? maxDate}
