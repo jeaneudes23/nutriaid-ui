@@ -4,9 +4,10 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { UserAvatar } from "@/components/UserAvatar";
 import { Assessment } from "@/features/assessments/assessment-schema";
 import { getAssessmentStats } from "@/features/assessments/components/GetAssessmentStats";
-import { getChild } from "@/features/children/children-api";
+import { getChild, getChildAssessments } from "@/features/children/children-api";
 import { ChildAssessmentsDatatable } from "@/features/children/components/ChildAssessmentsDatatable";
 import { ChildGrowthTrajectoryChart } from "@/features/children/components/ChildGrowthTrajectoryChart";
+import { ChildMeasurementsTrendChart } from "@/features/children/components/ChildMeasurementsTrendChart";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
 import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
 import { ArrowRightIcon, ChartNoAxesCombinedIcon, PlusIcon } from "lucide-react";
@@ -28,6 +29,8 @@ export default async function page({ params }: Props) {
       </div>
     );
 
+  const assessments = await getChildAssessments(childId);
+
   return (
     <div className="p-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -35,37 +38,40 @@ export default async function page({ params }: Props) {
           <h2 className="text-xl font-bold lg:text-2xl">Growth Monitoring</h2>
           <p className="text-muted-foreground">Track physical measurements against WHO standards</p>
         </div>
-        <Link className={buttonVariants({})} href={`${child._id}/measure`}>
-          <PlusIcon />
-          Add measurements
-        </Link>
       </div>
       <hr className="my-6" />
       <div className="grid gap-8">
-        <div className="col-span-full flex items-start gap-4">
-          <UserAvatar name={child.displayName} className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
-          <div className="grid gap-1">
-            <div className="font-heading text-2xl font-bold">{child.displayName}</div>
-            <div>
-              <span className="font-semibold">ID:</span> {child.pseudonym}
-            </div>
-            <div>
-              <span className="font-semibold">Date of birth:</span> {parseDate(child.dateOfBirth)} ({getAgeInMonths(child.dateOfBirth)} months)
-            </div>
-            <div>
-              <span className="font-semibold">Gender:</span> {child.sex}
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="col-span-full flex items-start gap-4">
+            <UserAvatar name={child.displayName} className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
+            <div className="grid gap-1">
+              <div className="font-heading text-2xl font-bold">{child.displayName}</div>
+              <div>
+                <span className="font-semibold">ID:</span> {child.pseudonym}
+              </div>
+              <div>
+                <span className="font-semibold">Date of birth:</span> {parseDate(child.dateOfBirth)} ({getAgeInMonths(child.dateOfBirth)} months)
+              </div>
+              <div>
+                <span className="font-semibold">Gender:</span> {child.sex}
+              </div>
             </div>
           </div>
+          <Link className={buttonVariants({})} href={`${child._id}/measure`}>
+            <PlusIcon />
+            Add measurements
+          </Link>
         </div>
         {child.lastAssessment ? (
           <LastAssessment assessment={child.lastAssessment} />
         ) : (
           <Card>
-            <EmptyErrorMessage label="No Assessment Available" icon={<ChartNoAxesCombinedIcon strokeWidth={1} className="size-16" />} />
+            <EmptyErrorMessage label="No assessments recorded yet" icon={<ChartNoAxesCombinedIcon strokeWidth={1} className="size-16" />} />
           </Card>
         )}
-        <ChildGrowthTrajectoryChart />
-        <ChildAssessmentsDatatable childId={child._id} />
+        <ChildMeasurementsTrendChart assessments={assessments} />
+        {/* <ChildGrowthTrajectoryChart /> */}
+        <ChildAssessmentsDatatable assessments={assessments} />
       </div>
     </div>
   );

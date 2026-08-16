@@ -4,7 +4,7 @@ export interface Assessment {
   _id: string;
   childId: Child;
   caregiverId: string;
-  measuredAt: Date;
+  measuredAt: string;
   weightKg: number;
   heightCm: number;
   muacCm: number;
@@ -57,7 +57,7 @@ export interface AssessmentWithChild {
   _id: string;
   childId: Child;
   caregiverId: string;
-  measuredAt: Date;
+  measuredAt: string;
   weightKg: number;
   heightCm: number;
   muacCm: number;

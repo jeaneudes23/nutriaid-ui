@@ -4,12 +4,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { cn, parseDate } from "@/lib/utils";
 import { ExternalLinkIcon, RulerDimensionLineIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
-import { getChildAssessments } from "../children-api";
 import DialogConfirmAction from "@/components/DialogConfirmAction";
+import { Assessment } from "@/features/assessments/assessment-schema";
 
-export const ChildAssessmentsDatatable = async ({ childId }: { childId: string }) => {
-  const assessments = await getChildAssessments(childId);
-
+export const ChildAssessmentsDatatable = ({ assessments }: { assessments: Assessment[] }) => {
   return (
     <Card>
       <CardHeader>
@@ -22,8 +20,8 @@ export const ChildAssessmentsDatatable = async ({ childId }: { childId: string }
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Height (cm)</TableHead>
               <TableHead>Weight (kg)</TableHead>
+              <TableHead>Height (cm)</TableHead>
               <TableHead>MUAC (cm)</TableHead>
               <TableHead>Age (months)</TableHead>
               <TableHead>Date measured</TableHead>

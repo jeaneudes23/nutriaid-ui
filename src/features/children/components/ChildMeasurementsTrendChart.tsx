@@ -1,68 +1,82 @@
 "use client";
 
-import { TrendingUp } from "lucide-react";
-import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
+import { useMemo, useState } from "react";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts";
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
-
-export const description = "A multiple line chart";
-
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+import { Assessment } from "@/features/assessments/assessment-schema";
+import { parseDate } from "@/lib/utils";
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--chart-2)",
-  },
+  weight: { label: "Weight (kg)", color: "var(--primary)" },
+  height: { label: "Height (cm)", color: "var(--primary)" },
+  muac: { label: "MUAC (cm)", color: "var(--primary)" },
+  bmi: { label: "BMI", color: "var(--primary)" },
 } satisfies ChartConfig;
 
-export function ChildMeasurementsTrendChart() {
+type MetricKey = keyof typeof chartConfig;
+
+export function ChildMeasurementsTrendChart({ assessments }: { assessments: Assessment[] }) {
+  const [metric, setMetric] = useState<MetricKey>("weight");
+
+  const chartData = useMemo(
+    () =>
+      [...assessments]
+        .sort((a, b) => new Date(a.measuredAt).getTime() - new Date(b.measuredAt).getTime())
+        .map((assessment) => ({
+          date: parseDate(assessment.measuredAt),
+          weight: assessment.weightKg,
+          height: assessment.heightCm,
+          muac: assessment.muacCm,
+          bmi: assessment.bmi,
+        })),
+    [assessments],
+  );
+
+  if (chartData.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Child Growth trend</CardTitle>
+          <CardDescription>No assessments recorded yet</CardDescription>
+        </CardHeader>
+      </Card>
+    );
+  }
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Line Chart - Multiple</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+      <CardHeader className="flex items-center justify-between">
+        <div>
+          <CardTitle>Child Growth trend</CardTitle>
+          <CardDescription>
+            {chartData[0].date} – {chartData[chartData.length - 1].date}
+          </CardDescription>
+        </div>
+        <div className="flex gap-1 rounded-md border bg-gray-100 p-1 shadow-xs">
+          {(Object.keys(chartConfig) as MetricKey[]).map((key) => (
+            <button
+              key={key}
+              onClick={() => setMetric(key)}
+              className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${metric === key ? "bg-primary text-primary-foreground" : "hover:bg-muted bg-white"}`}
+            >
+              {chartConfig[key].label.split(" (")[0]}
+            </button>
+          ))}
+        </div>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <LineChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
-          >
+        <ChartContainer config={chartConfig} className="max-h-64">
+          <LineChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
+            <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} />
+            <YAxis />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Line dataKey="desktop" type="monotone" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
-            <Line dataKey="mobile" type="monotone" stroke="var(--color-mobile)" strokeWidth={2} dot={false} />
+            <Line dataKey={metric} type="monotone" stroke={`var(--color-${metric})`} strokeWidth={2} dot={false} />
           </LineChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter>
-        <div className="flex w-full items-start gap-2 text-sm">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 leading-none font-medium">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="text-muted-foreground flex items-center gap-2 leading-none">Showing total visitors for the last 6 months</div>
-          </div>
-        </div>
-      </CardFooter>
     </Card>
   );
 }

@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getAgeInMonths(date: string): string {
   const today = new Date().toLocaleDateString()
 
-  if (!date || date == "") return ""
+  if (!date) return ""
 
   return differenceInMonths(today, date).toString();
 }

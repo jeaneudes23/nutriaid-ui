@@ -11,17 +11,17 @@ import { cn } from "@/lib/utils";
 export const description = "A multiple line chart";
 
 const chartData = [
-  { month: "January", median: 14.2, current: 10.5 },
-  { month: "February", median: 14.2, current: 13.7 },
-  { month: "March", median: 14.2, current: 14.0 },
-  { month: "April", median: 14.2, current: 18.1 },
-  { month: "May", median: 14.2, current: 11.3 },
-  { month: "June", median: 14.2, current: 12.5 },
+  { month: "January", whoUpperLimitAtAge: 14.2, whoLowerLimitAtAge: 11.0, current: 10.5 },
+  { month: "February", whoUpperLimitAtAge: 14.2, whoLowerLimitAtAge: 11.0, current: 13.7 },
 ];
 
 const chartConfig = {
-  median: {
-    label: "Median",
+  whoUpperLimitAtAge: {
+    label: "Upper limit",
+    color: "var(--healthy)",
+  },
+  whoLowerLimitAtAge: {
+    label: "Lower limit",
     color: "var(--healthy)",
   },
   current: {
@@ -34,10 +34,7 @@ export function ChildGrowthTrajectoryChart() {
   return (
     <Card>
       <CardHeader className="flex items-center justify-between">
-        <CardTitle className="flex items-center gap-2">
-          <TrendingUpIcon className="text-primary" />
-          Child growth trajectory
-        </CardTitle>
+        <CardTitle className="flex items-center gap-2">Child growth trajectory</CardTitle>
         <div className="font-heading flex items-center gap-1 rounded-md border bg-gray-100 p-1 shadow-xs">
           <button className={cn("bg-background text-primary rounded px-2 py-1 text-xs font-medium")}>Weight</button>
           <button className={cn("rounded px-2 py-1 text-xs font-medium")}>Height</button>
@@ -58,7 +55,8 @@ export function ChildGrowthTrajectoryChart() {
             <YAxis />
             <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <Line dataKey="median" type="monotone" stroke="var(--color-median)" strokeWidth={2} dot={false} />
+            <Line dataKey="whoUpperLimitAtAge" type="monotone" stroke="var(--color-whoUpperLimitAtAge)" strokeWidth={2} dot={false} />
+            <Line dataKey="whoLowerLimitAtAge" type="monotone" stroke="var(--color-whoLowerLimitAtAge)" strokeWidth={2} dot={false} />
             <Line dataKey="current" type="monotone" stroke="var(--color-current)" strokeWidth={2} dot={false} />
           </LineChart>
         </ChartContainer>
@@ -70,7 +68,7 @@ export function ChildGrowthTrajectoryChart() {
         </div>
         <div className="flex items-center gap-1">
           <span style={{ backgroundColor: "var(--healthy)" }} className="size-4 rounded-full"></span>
-          <span className="text-muted-foreground text-sm font-medium">WHO median value</span>
+          <span className="text-muted-foreground text-sm font-medium">WHO limits at age</span>
         </div>
       </CardFooter>
     </Card>
