@@ -4,7 +4,7 @@ import { Label } from "./ui/label";
 
 export const SearchBox = () => {
   return (
-    <form>
+    <form className="hidden">
       <Label htmlFor="search" hidden>
         Search
       </Label>

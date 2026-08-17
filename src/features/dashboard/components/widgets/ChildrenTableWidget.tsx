@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { UserAvatar } from "@/components/UserAvatar";
 import { getChildren } from "@/features/children/children-api";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
-import { cn, getAgeInMonths } from "@/lib/utils";
+import { cn, getAgeInYearsAndMonths } from "@/lib/utils";
 import { ArrowRightIcon, BabyIcon, ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -41,7 +41,7 @@ export const ChildrenTableWidget = async () => {
                     <UserAvatar name={child.displayName} className="bg-primary text-primary-foreground text-center" />
                     {child.displayName}
                   </TableCell>
-                  <TableCell>{getAgeInMonths(child.dateOfBirth)}</TableCell>
+                  <TableCell>{getAgeInYearsAndMonths(child.dateOfBirth)}</TableCell>
                   <TableCell className="w-fit">
                     <NutritionStatusBadge
                       showIcon={false}

@@ -1,6 +1,6 @@
 import { CalendarIcon, CircleIcon, MoveVerticalIcon, PersonStandingIcon, UserIcon, WeightIcon } from "lucide-react";
 import { Assessment } from "../assessment-schema";
-import { parseDate } from "@/lib/utils";
+import { getAgeInYearsAndMonths, parseDate } from "@/lib/utils";
 
 interface Stat {
   title: string;
@@ -11,7 +11,7 @@ interface Stat {
 
 export function getAssessmentStats(assessment: Assessment): Stat[] {
   return [
-    { title: "Age", icon: <UserIcon className="size-4" />, value: assessment.ageMonthsAtMeasurement, unit: "months" },
+    { title: "Age", icon: <UserIcon className="size-4" />, value: getAgeInYearsAndMonths(assessment.childId.dateOfBirth, assessment.measuredAt), unit: "months" },
     { title: "Measured At", icon: <CalendarIcon className="size-4" />, value: parseDate(assessment.measuredAt) },
     { title: "Weight", icon: <WeightIcon className="size-4" />, value: assessment.weightKg, unit: "kg" },
     { title: "Height", icon: <MoveVerticalIcon className="size-4" />, value: assessment.heightCm, unit: "cm" },

@@ -23,7 +23,7 @@ export const NavUserMenu = async () => {
     <div className="inline-flex items-center justify-end gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <UserAvatar name={session.user.name!} />
+          <UserAvatar className="size-10 cursor-pointer text-sm font-semibold" name={session.user.name!} />
         </DropdownMenuTrigger>
         <DropdownMenuSeparator />
         <DropdownMenuContent className={"min-w-56"}>

@@ -10,6 +10,7 @@ import { SearchBox } from "@/components/SearchBox";
 import { EmptyErrorMessage } from "@/components/ErrorMessages";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
 import DialogConfirmAction from "@/components/DialogConfirmAction";
+import { Badge } from "@/components/ui/badge";
 
 export const AssessmentsDatatable = async () => {
   const assessments = await getAssessments();
@@ -43,7 +44,13 @@ export const AssessmentsDatatable = async () => {
                 <TableRow key={assessment._id}>
                   <TableCell className="inline-flex items-center gap-2">
                     <UserAvatar name={assessment.childId.displayName} className="bg-primary text-primary-foreground text-center" />
-                    {assessment.childId.displayName}
+                    <div className="grid">
+                      <span>{assessment.childId.displayName}</span>
+                      <span className="flex items-center gap-2">
+                        <Badge variant={"outline"}>Gender: {assessment.childId.sex}</Badge>
+                        <Badge variant={"outline"}>DOB: {parseDate(assessment.childId.dateOfBirth)}</Badge>
+                      </span>
+                    </div>
                   </TableCell>
                   <TableCell>{assessment.weightKg}</TableCell>
                   <TableCell>{assessment.heightCm}</TableCell>
