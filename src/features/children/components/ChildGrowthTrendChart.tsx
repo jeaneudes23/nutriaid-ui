@@ -54,12 +54,12 @@ export function ChildGrowthTrendChart({ assessments }: { assessments: Assessment
             {chartData[0].date} – {chartData[chartData.length - 1].date}
           </CardDescription>
         </div>
-        <div className="flex gap-1 rounded-md border bg-gray-100 p-1 shadow-xs">
+        <div className="flex gap-1 rounded border bg-gray-100 p-1 shadow-xs">
           {(Object.keys(chartConfig) as MetricKey[]).map((key) => (
             <button
               key={key}
               onClick={() => setMetric(key)}
-              className={`rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${metric === key ? "bg-primary text-primary-foreground" : "hover:bg-muted bg-white"}`}
+              className={`rounded border px-2.5 py-1 text-xs font-medium shadow-xs transition-colors ${metric === key ? "bg-primary text-primary-foreground" : "hover:bg-muted bg-white"}`}
             >
               {chartConfig[key].label.split(" (")[0]}
             </button>
