@@ -25,7 +25,7 @@ export const AssessmentsDatatable = async () => {
         {assessments.length == 0 ? (
           <EmptyErrorMessage icon={<ChartNoAxesCombinedIcon className="size-16" strokeWidth={1} />} label="No assessments recorded yet" />
         ) : (
-          <Table>
+          <Table className="min-w-2xl">
             <TableHeader>
               <TableRow>
                 <TableHead>Child</TableHead>

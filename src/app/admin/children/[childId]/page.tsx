@@ -40,7 +40,7 @@ export default async function page({ params }: Props) {
             <ArrowLeftIcon />
             All Children profiles
           </Link>
-          <h2 className="text-xl font-bold lg:text-2xl">Growth Monitoring</h2>
+          {/* <h2 className="text-xl font-bold lg:text-2xl">Growth Monitoring</h2> */}
         </div>
         <DialogConfirmAction
           triggerChildren={
@@ -61,8 +61,8 @@ export default async function page({ params }: Props) {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div className="col-span-full flex items-start gap-4">
             <UserAvatar name={child.displayName} className="bg-primary/10 border-card-foreground/10 size-20 border text-center text-3xl font-extrabold shadow-xs" />
-            <div className="grid gap-1">
-              <div className="font-heading text-2xl font-bold">{child.displayName}</div>
+            <div className="grid gap-1 text-sm lg:text-base">
+              <div className="font-heading text-base font-bold lg:text-xl">{child.displayName}</div>
               <div>
                 <span className="font-semibold">ID:</span> {child.pseudonym}
               </div>
@@ -74,7 +74,7 @@ export default async function page({ params }: Props) {
               </div>
             </div>
           </div>
-          <Link className={buttonVariants({})} href={`${child._id}/measure`}>
+          <Link className={cn(buttonVariants({}))} href={`${child._id}/measure`}>
             <PlusIcon />
             Add measurements
           </Link>
@@ -98,7 +98,7 @@ export async function LastAssessment({ assessment }: { assessment: Assessment })
   const stats = getAssessmentStats(assessment);
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid gap-4 lg:grid-cols-2">
       <Card>
         <CardHeader className="flex items-center justify-between gap-2">
           <CardTitle className="flex items-center gap-2">Last assessment</CardTitle>

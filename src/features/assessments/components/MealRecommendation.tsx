@@ -17,7 +17,7 @@ export const MealRecommendation = ({ meal }: Props) => {
       <button onClick={() => setOpen((prev) => !prev)} className="flex w-full cursor-pointer items-center border-b p-0 transition-colors hover:bg-gray-50">
         <span className="bg-primary/10 text-primary border-primary/40 border-r-2 px-6 py-4 text-lg font-bold">{meal.priority}</span>
         <div className="px-3">
-          <h3 className="pb-0 text-lg font-semibold">{meal.name}</h3>
+          <h3 className="pb-0 text-sm font-semibold lg:text-base">{meal.name}</h3>
         </div>
         <div className={cn("ml-auto px-3 transition-transform", open ? "rotate-90" : "")}>
           <ChevronDownIcon />

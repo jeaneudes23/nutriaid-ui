@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "@/components/UserAvatar";
 import { auth } from "@/lib/auth";
@@ -10,9 +9,9 @@ export const DashboardUserMenu = async () => {
   if (!session?.user.name) return null;
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className={"flex w-full items-center gap-2 rounded-md border bg-white p-2 shadow"}>
+      <DropdownMenuTrigger className={"flex items-center justify-start gap-2 rounded-full border bg-white shadow lg:w-full lg:rounded-md lg:p-2"}>
         <UserAvatar name={session.user.name} />
-        <p className="text-sm font-medium">{session.user.name}</p>
+        <p className="hidden text-sm font-medium lg:inline">{session.user.name}</p>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={"min-w-56"}>
         <DropdownMenuGroup>

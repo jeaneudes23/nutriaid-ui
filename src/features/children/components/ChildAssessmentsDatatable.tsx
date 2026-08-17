@@ -15,7 +15,7 @@ export const ChildAssessmentsDatatable = ({ assessments }: { assessments: Assess
         <CardTitle className="flex items-center gap-2">Assessment history</CardTitle>
       </CardHeader>
       <CardContent>
-        <Table>
+        <Table className="min-w-2xl">
           <TableHeader>
             <TableRow>
               <TableHead>Weight (kg)</TableHead>

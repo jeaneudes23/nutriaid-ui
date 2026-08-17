@@ -14,7 +14,7 @@ export const ChildrenTableWidget = async () => {
 
   return (
     <Card className="grid gap-6">
-      <CardHeader className="flex justify-between">
+      <CardHeader className="flex flex-wrap items-center justify-between gap-2">
         <CardTitle>Children Profiles</CardTitle>
         <Link href={`/admin/children`} className={cn(buttonVariants({ variant: "outline" }))}>
           View All
@@ -25,7 +25,7 @@ export const ChildrenTableWidget = async () => {
         {children.length == 0 ? (
           <EmptyErrorMessage icon={<BabyIcon className="size-16" strokeWidth={1} />} label="No child profiles available" />
         ) : (
-          <Table>
+          <Table className="min-w-2xl">
             <TableHeader>
               <TableRow>
                 <TableHead>Full name</TableHead>

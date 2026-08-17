@@ -59,7 +59,7 @@ export default async function page({ params }: Props) {
             <NutritionStatusBadge status={assessment.nutritionalStatus} />
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-3 gap-4 text-sm">
+            <div className="grid gap-4 text-sm sm:grid-cols-2 lg:grid-cols-3">
               {STATS.map((stat, i) => (
                 <div key={i} className="flex items-center justify-between rounded-md border bg-gray-100 p-3 shadow-xs">
                   <span className="inline-flex items-center gap-1">

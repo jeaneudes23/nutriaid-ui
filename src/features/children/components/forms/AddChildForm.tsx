@@ -62,7 +62,7 @@ export const AddChildForm = () => {
       <div className="flex items-center gap-6">
         {Array.from({ length: STEPS.length }, (_, i) => (
           <div key={i} className="grid w-full gap-1">
-            <span className={cn("text-sm font-medium transition-colors", i <= step ? "text-primary" : "")}>
+            <span className={cn("line-clamp-1 text-sm font-medium transition-colors", i <= step ? "text-primary" : "")}>
               Step {i + 1}: {STEPS[i]}
             </span>
             <span

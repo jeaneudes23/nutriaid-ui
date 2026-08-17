@@ -47,7 +47,7 @@ export function ChildGrowthTrendChart({ assessments }: { assessments: Assessment
 
   return (
     <Card>
-      <CardHeader className="flex items-center justify-between">
+      <CardHeader className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <CardTitle>Child Growth trend</CardTitle>
           <CardDescription>
