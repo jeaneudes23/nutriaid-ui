@@ -10,6 +10,7 @@ import { ChildAssessmentsDatatable } from "@/features/children/components/ChildA
 import { ChildGrowthTrendChart } from "@/features/children/components/ChildGrowthTrendChart";
 import { ChildStatusTrendChart } from "@/features/children/components/ChildStatusTrendChart";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
+import { ChildStatsOverviewWidget } from "@/features/children/components/widgets/ChildStatsOverviewWidget";
 import { cn, getAgeInYearsAndMonths, parseDate } from "@/lib/utils";
 import { ArrowLeftIcon, ArrowRightIcon, ChartNoAxesCombinedIcon, PlusIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
@@ -79,6 +80,7 @@ export default async function page({ params }: Props) {
             Add measurements
           </Link>
         </div>
+        <ChildStatsOverviewWidget assessments={assessments} />
         {child.lastAssessment ? (
           <LastAssessment assessment={child.lastAssessment} />
         ) : (

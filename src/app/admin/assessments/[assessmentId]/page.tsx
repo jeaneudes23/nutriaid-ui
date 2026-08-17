@@ -2,13 +2,12 @@ import DialogConfirmAction from "@/components/DialogConfirmAction";
 import { EmptyErrorMessage } from "@/components/ErrorMessages";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "@/components/ui/card";
-import { UserAvatar } from "@/components/UserAvatar";
 import { getAssessment } from "@/features/assessments/assessments-api";
 import { getAssessmentStats } from "@/features/assessments/components/GetAssessmentStats";
 import { MealRecommendation } from "@/features/assessments/components/MealRecommendation";
 import { ChildCard } from "@/features/children/components/ChildCard";
 import { NutritionStatusBadge } from "@/features/children/components/NutritionStatusBadge";
-import { cn, getAgeInMonths, parseDate } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { ArrowLeftIcon, TrashIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -75,7 +74,7 @@ export default async function page({ params }: Props) {
           </CardContent>
           <CardFooter className="grid gap-2">
             <h3 className="text-lg font-bold">{assessment.insight.title}</h3>
-            <p>{assessment.insight.body}</p>
+            <p className="max-w-3xl text-balance">{assessment.insight.body}</p>
           </CardFooter>
         </Card>
 

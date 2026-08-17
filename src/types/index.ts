@@ -40,3 +40,9 @@ declare module "next-auth/jwt" {
   }
 }
 
+export interface StatForWidget {
+  title: string;
+  icon: React.ReactNode;
+  value: string | number;
+  unit?: string;
+};

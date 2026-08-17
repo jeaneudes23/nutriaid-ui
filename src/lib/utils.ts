@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getAgeInYearsAndMonths(start: string, from?: string): string {
-  const end = from ? new Date(from).toLocaleDateString() : new Date().toLocaleDateString()
+  const end = from ? new Date(from) : new Date()
 
   if (!end) return "<1m"
 
@@ -16,6 +16,7 @@ export function getAgeInYearsAndMonths(start: string, from?: string): string {
 
   if (m < 1) return "<1m"
 
+  if (m < 13) return `${m} months`
   return `${y > 0 ? `${y}y` : ''} ${m - y * 12 > 0 ? `${m - y * 12}m` : ''}`
 }
 

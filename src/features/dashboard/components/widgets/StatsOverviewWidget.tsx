@@ -21,7 +21,7 @@ export const StatsOverviewWidget = ({ values }: { values: { children: number; as
   ];
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+    <div className="grid gap-4 sm:grid-cols-[repeat(auto-fill,minmax(240px,1fr))]">
       {STATS.map((stat, i) => (
         <Card key={i}>
           <CardHeader className="flex flex-row items-center gap-4">

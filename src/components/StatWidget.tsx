@@ -1,26 +1,17 @@
 import React from "react";
-import { Card, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { cn } from "@/lib/utils";
+import { Card, CardHeader, CardTitle } from "./ui/card";
+import { StatForWidget } from "@/types";
 
-interface Props {
-  stat: {
-    title: string;
-    icon: React.ReactNode;
-    value: string | number;
-    unit?: string;
-  };
-}
-
-export const StatWidget = ({ stat }: Props) => {
+export const StatWidget = ({ stat }: { stat: StatForWidget }) => {
   return (
     <Card>
-      <CardHeader>
-        <CardTitle className="text-muted-foreground inline-flex items-center gap-2 text-sm">
-          <span className="text-primary-foreground bg-primary grid size-8 place-content-center rounded-full">{stat.icon}</span> {stat.title}
-        </CardTitle>
+      <CardHeader className="flex flex-row items-center gap-4">
+        <div className="bg-primary/10 text-primary flex size-10 shrink-0 items-center justify-center rounded-full">{stat.icon}</div>
         <div>
-          <span className="text-2xl font-bold">{stat.value}</span>
-          <span className="text-muted-foreground font-medium"> {stat.unit}</span>
+          <div>
+            <span className="text-2xl font-bold">{stat.value} </span>
+          </div>
+          <CardTitle className="text-muted-foreground text-sm font-medium">{stat.title}</CardTitle>
         </div>
       </CardHeader>
     </Card>
