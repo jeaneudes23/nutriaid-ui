@@ -11,7 +11,7 @@ interface Stat {
 
 export function getAssessmentStats(assessment: Assessment): Stat[] {
   return [
-    { title: "Age", icon: <UserIcon className="size-4" />, value: getAgeInYearsAndMonths(assessment.childId.dateOfBirth, assessment.measuredAt), unit: "months" },
+    { title: "Age", icon: <UserIcon className="size-4" />, value: getAgeInYearsAndMonths(assessment.measuredAt, assessment.childId.dateOfBirth) },
     { title: "Measured At", icon: <CalendarIcon className="size-4" />, value: parseDate(assessment.measuredAt) },
     { title: "Weight", icon: <WeightIcon className="size-4" />, value: assessment.weightKg, unit: "kg" },
     { title: "Height", icon: <MoveVerticalIcon className="size-4" />, value: assessment.heightCm, unit: "cm" },
