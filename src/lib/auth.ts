@@ -55,7 +55,7 @@ export async function handleAxiosErrorOnServer(error: AxiosError): Promise<Recor
     return null
   } else {
     const errorData = error.response?.data as BackEndErrorResponse
-    const errors = errorData.errors.reduce((acc, error) => ({ ...acc, [error.param]: error.message }), {})
+    const errors = errorData.errors?.reduce((acc, error) => ({ ...acc, [error.param]: error.message }), {})
     return errors
   }
 
