@@ -34,7 +34,7 @@ export async function createAssessmentAction(prev: ServerActionState, formData: 
       const errors = await handleAxiosErrorOnServer(error)
       return {
         success: false,
-        message: error.response?.data?.title,
+        message: error.response?.data?.title ?? "Server error",
         errors: errors,
         prevs: rawFormData
       }

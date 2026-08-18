@@ -38,7 +38,7 @@ export async function addChildrenAction(prev: ServerActionState, formData: FormD
       const errors = await handleAxiosErrorOnServer(error)
       return {
         success: false,
-        message: error.response?.data?.title,
+        message: error.response?.data?.title ?? "Error on server",
         errors: errors,
         prevs: rawFormData
       }
